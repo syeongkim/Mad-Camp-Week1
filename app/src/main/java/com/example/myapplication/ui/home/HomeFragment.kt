@@ -5,13 +5,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentHomeBinding
 import com.google.gson.Gson
 
 class HomeFragment : Fragment() {
+
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -27,7 +26,11 @@ class HomeFragment : Fragment() {
         val root: View = binding.root
 
         loadContactsFromJson()
-        bindContacts()
+
+        // 이름과 연락처를 TextView에 표시
+
+        binding.nameTextView.text = contacts[0].name
+        binding.phoneTextView.text = contacts[0].phoneNumber
 
         return root
     }
@@ -45,21 +48,6 @@ class HomeFragment : Fragment() {
         contacts = contactsData.data
 
         Log.d("HomeFragment", "contactsString: $contacts")
-    }
-
-    private fun bindContacts() {
-        binding.contactsLayout.removeAllViews() // 기존 뷰들을 제거
-
-        contacts.forEach { contact ->
-            // 새로운 뷰를 inflate하여 추가
-            val contactView = LayoutInflater.from(requireContext())
-                .inflate(R.layout.item_contact, binding.contactsLayout, false)
-
-            contactView.findViewById<TextView>(R.id.nameTextView).text = contact.name
-            contactView.findViewById<TextView>(R.id.phoneTextView).text = contact.phoneNumber
-
-            binding.contactsLayout.addView(contactView)
-        }
     }
 }
 
