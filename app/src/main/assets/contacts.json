@@ -2,11 +2,11 @@
   "data": [
     {
       "name": "John Doe",
-      "phone": "123-456-7890"
+      "phoneNumber": "123-456-7890"
     },
     {
       "name": "Jane Smith",
-      "phone": "987-654-3210"
+      "phoneNumber": "987-654-3210"
     }
   ]
 }
