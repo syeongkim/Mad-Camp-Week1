@@ -10,6 +10,8 @@ import android.widget.BaseAdapter
 import android.widget.GridView
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.myapplication.R
+import com.example.myapplication.databinding.IgActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
@@ -18,7 +20,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         title = "list view exam"
 
-        val gv: GridView = findViewById(R.id.gridView)
+        var binding = IgActivityMainBinding.inflate(layoutInflater)
+
+        val gv: GridView = binding.gridView
         val gAdapter = MyGridAdapter(
             this
         )
@@ -68,7 +72,7 @@ class MainActivity : AppCompatActivity() {
             imageView.setOnClickListener {
                 val dialogView = View.inflate(
                     context,
-                    R.layout.dialog,
+                    R.layout.ig_dialog,
                     null
                 )
                 val dlg = AlertDialog.Builder(context)
