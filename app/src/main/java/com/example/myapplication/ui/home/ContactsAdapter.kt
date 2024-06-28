@@ -1,3 +1,5 @@
+
+import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +13,23 @@ class ContactsAdapter(private val contacts: List<Contact>) : RecyclerView.Adapte
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameTextView: TextView = itemView.findViewById(R.id.nameTextView)
         val phoneTextView: TextView = itemView.findViewById(R.id.phoneTextView)
+
+        init {
+            itemView.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    showDetailsDialog(contacts[position], itemView)
+                }
+            }
+        }
+
+        private fun showDetailsDialog(contact: Contact, view: View) {
+            val builder = AlertDialog.Builder(view.context)
+            builder.setTitle("Contact Details")
+            builder.setMessage("Name: ${contact.name}\nPhone: ${contact.phoneNumber}\nAge: ${contact.age}")
+            builder.setPositiveButton("OK", null)
+            builder.show()
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

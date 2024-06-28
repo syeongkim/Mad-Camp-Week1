@@ -25,11 +25,6 @@ class HomeFragment : Fragment() {
 
         // 샘플 연락처 데이터
         val contacts = loadContactsFromJson()
-//        val contacts = listOf(
-//            Contact("John Doe", "123-456-7890"),
-//            Contact("Jane Smith", "987-654-3210"),
-//            Contact("Bob Johnson", "555-555-5555")
-//        )
 
         // RecyclerView 설정
         binding.contactsLayout.layoutManager = LinearLayoutManager(requireContext())
@@ -51,7 +46,8 @@ class HomeFragment : Fragment() {
 
 data class Contact(
     val name: String,
-    val phoneNumber: String
+    val phoneNumber: String,
+    val age: String
 )
 
 data class ContactsData(
