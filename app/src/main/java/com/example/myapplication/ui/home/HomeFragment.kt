@@ -1,38 +1,39 @@
 package com.example.myapplication.ui.home
 
+import ContactsAdapter
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.databinding.FragmentHomeBinding
 import com.google.gson.Gson
 
 class HomeFragment : Fragment() {
 
-
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var contacts: List<Contact>
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        return binding.root
+    }
 
-        loadContactsFromJson()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        // 이름과 연락처를 TextView에 표시
+        // 샘플 연락처 데이터
+        val contacts = loadContactsFromJson()
+//        val contacts = listOf(
+//            Contact("John Doe", "123-456-7890"),
+//            Contact("Jane Smith", "987-654-3210"),
+//            Contact("Bob Johnson", "555-555-5555")
+//        )
 
-        binding.nameTextView.text = contacts[0].name
-        binding.phoneTextView.text = contacts[0].phoneNumber
-
-        return root
+        // RecyclerView 설정
+        binding.contactsLayout.layoutManager = LinearLayoutManager(requireContext())
+        binding.contactsLayout.adapter = ContactsAdapter(contacts)
     }
 
     override fun onDestroyView() {
@@ -40,14 +41,11 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 
-    private fun loadContactsFromJson() {
+    private fun loadContactsFromJson(): List<Contact> {
         val jsonString = context?.assets?.open("contacts.json")?.bufferedReader().use { it?.readText() }
-        Log.d("HomeFragment", "jsonString: $jsonString")
-
         val contactsData = Gson().fromJson(jsonString, ContactsData::class.java)
-        contacts = contactsData.data
+        return contactsData.data
 
-        Log.d("HomeFragment", "contactsString: $contacts")
     }
 }
 
