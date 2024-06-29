@@ -2,12 +2,16 @@ import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.ui.home.Contact
 
-class ContactsAdapter(private var contacts: List<Contact>) : RecyclerView.Adapter<ContactsAdapter.ViewHolder>() {
+class ContactsAdapter(private var contacts: List<Contact>) : RecyclerView.Adapter<ContactsAdapter.ViewHolder>(), Filterable {
+
+    private var filteredContacts: List<Contact> = contacts
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameTextView: TextView = itemView.findViewById(R.id.nameTextView)
@@ -17,7 +21,7 @@ class ContactsAdapter(private var contacts: List<Contact>) : RecyclerView.Adapte
             itemView.setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
-                    showDetailsDialog(contacts[position], itemView)
+                    showDetailsDialog(filteredContacts[position], itemView)
                 }
             }
         }
@@ -37,24 +41,44 @@ class ContactsAdapter(private var contacts: List<Contact>) : RecyclerView.Adapte
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val contact = contacts[position]
+        val contact = filteredContacts[position]
         holder.nameTextView.text = contact.name
         holder.phoneTextView.text = contact.phoneNumber
     }
 
-    override fun getItemCount() = contacts.size
+    override fun getItemCount() = filteredContacts.size
 
     fun sortByLastContactedDate() {
-        contacts = contacts.sortedWith(compareBy<Contact> { it.lastContactedDate }.thenBy { it.savedDate })
+        filteredContacts = filteredContacts.sortedWith(compareBy<Contact> { it.lastContactedDate }.thenBy { it.savedDate })
         notifyDataSetChanged()
     }
 
     fun sortByName() {
-        contacts = contacts.sortedWith(compareBy<Contact> {it.name})
+        filteredContacts = filteredContacts.sortedWith(compareBy<Contact> { it.name })
         notifyDataSetChanged()
     }
-    fun updateContacts(sortedContacts: List<Contact>) {
-        contacts = sortedContacts
-        notifyDataSetChanged()
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val charString = constraint?.toString() ?: ""
+                filteredContacts = if (charString.isEmpty()) {
+                    contacts
+                } else {
+                    contacts.filter {
+                        it.name.contains(charString, true) || it.phoneNumber.contains(charString, true)
+                    }
+                }
+                val filterResults = FilterResults()
+                filterResults.values = filteredContacts
+                return filterResults
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                filteredContacts = results?.values as List<Contact>
+                notifyDataSetChanged()
+            }
+        }
     }
 }
+
