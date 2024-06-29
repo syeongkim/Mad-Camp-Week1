@@ -6,4 +6,6 @@
     <string name="name">Name</string>
     <string name="phone">Phone</string>
     <string name="todo">TODO</string>
+    <string name="recommend">추천순 보기</string>
+    <string name="sort">가나다순 보기</string>
 </resources>

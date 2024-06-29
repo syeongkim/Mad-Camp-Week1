@@ -1,4 +1,3 @@
-
 import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.ui.home.Contact
 
-class ContactsAdapter(private val contacts: List<Contact>) : RecyclerView.Adapter<ContactsAdapter.ViewHolder>() {
+class ContactsAdapter(private var contacts: List<Contact>) : RecyclerView.Adapter<ContactsAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameTextView: TextView = itemView.findViewById(R.id.nameTextView)
@@ -44,4 +43,18 @@ class ContactsAdapter(private val contacts: List<Contact>) : RecyclerView.Adapte
     }
 
     override fun getItemCount() = contacts.size
+
+    fun sortByLastContactedDate() {
+        contacts = contacts.sortedWith(compareBy<Contact> { it.lastContactedDate }.thenBy { it.savedDate })
+        notifyDataSetChanged()
+    }
+
+    fun sortByName() {
+        contacts = contacts.sortedWith(compareBy<Contact> {it.name})
+        notifyDataSetChanged()
+    }
+    fun updateContacts(sortedContacts: List<Contact>) {
+        contacts = sortedContacts
+        notifyDataSetChanged()
+    }
 }
