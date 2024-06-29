@@ -47,7 +47,8 @@ class HomeFragment : Fragment() {
 data class Contact(
     val name: String,
     val phoneNumber: String,
-    val age: String
+    val savedDate: String,
+    val lastContactedDate: String
 )
 
 data class ContactsData(

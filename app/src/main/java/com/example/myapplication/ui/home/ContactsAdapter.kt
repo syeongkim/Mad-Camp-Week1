@@ -26,7 +26,7 @@ class ContactsAdapter(private val contacts: List<Contact>) : RecyclerView.Adapte
         private fun showDetailsDialog(contact: Contact, view: View) {
             val builder = AlertDialog.Builder(view.context)
             builder.setTitle("Contact Details")
-            builder.setMessage("Name: ${contact.name}\nPhone: ${contact.phoneNumber}\nAge: ${contact.age}")
+            builder.setMessage("Name: ${contact.name}\nPhone: ${contact.phoneNumber}\n연락처 저장 날짜: ${contact.savedDate}\n최근 연락 날짜: ${contact.lastContactedDate}")
             builder.setPositiveButton("OK", null)
             builder.show()
         }
