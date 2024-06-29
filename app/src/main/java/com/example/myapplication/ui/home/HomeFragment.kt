@@ -15,6 +15,8 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var contactsAdapter: ContactsAdapter
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
@@ -23,12 +25,23 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 샘플 연락처 데이터
+        // 연락처 정보 가져오기
         val contacts = loadContactsFromJson()
 
         // RecyclerView 설정
+        contactsAdapter = ContactsAdapter(contacts)
         binding.contactsLayout.layoutManager = LinearLayoutManager(requireContext())
-        binding.contactsLayout.adapter = ContactsAdapter(contacts)
+        binding.contactsLayout.adapter = contactsAdapter
+
+        // 추천순 보기 버튼 클릭 이벤트 처리
+        binding.recommendButton.setOnClickListener {
+            contactsAdapter.sortByLastContactedDate()
+        }
+
+        // 가나다순 보기 버튼 클릭 이벤트 처리
+        binding.sortButton.setOnClickListener{
+            contactsAdapter.sortByName()
+        }
     }
 
     override fun onDestroyView() {
@@ -39,15 +52,15 @@ class HomeFragment : Fragment() {
     private fun loadContactsFromJson(): List<Contact> {
         val jsonString = context?.assets?.open("contacts.json")?.bufferedReader().use { it?.readText() }
         val contactsData = Gson().fromJson(jsonString, ContactsData::class.java)
-        return contactsData.data
-
+        return contactsData?.data ?: emptyList()
     }
 }
 
 data class Contact(
     val name: String,
     val phoneNumber: String,
-    val age: String
+    val savedDate: String,
+    val lastContactedDate: String
 )
 
 data class ContactsData(

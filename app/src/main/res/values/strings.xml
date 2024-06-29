@@ -1,9 +1,11 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">자니...?</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="name">Name</string>
     <string name="phone">Phone</string>
     <string name="todo">TODO</string>
+    <string name="recommend">추천순 보기</string>
+    <string name="sort">가나다순 보기</string>
 </resources>

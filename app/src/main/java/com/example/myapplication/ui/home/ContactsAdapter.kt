@@ -1,4 +1,3 @@
-
 import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.ui.home.Contact
 
-class ContactsAdapter(private val contacts: List<Contact>) : RecyclerView.Adapter<ContactsAdapter.ViewHolder>() {
+class ContactsAdapter(private var contacts: List<Contact>) : RecyclerView.Adapter<ContactsAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameTextView: TextView = itemView.findViewById(R.id.nameTextView)
@@ -26,7 +25,7 @@ class ContactsAdapter(private val contacts: List<Contact>) : RecyclerView.Adapte
         private fun showDetailsDialog(contact: Contact, view: View) {
             val builder = AlertDialog.Builder(view.context)
             builder.setTitle("Contact Details")
-            builder.setMessage("Name: ${contact.name}\nPhone: ${contact.phoneNumber}\nAge: ${contact.age}")
+            builder.setMessage("Name: ${contact.name}\nPhone: ${contact.phoneNumber}\n연락처 저장 날짜: ${contact.savedDate}\n최근 연락 날짜: ${contact.lastContactedDate}")
             builder.setPositiveButton("OK", null)
             builder.show()
         }
@@ -44,4 +43,18 @@ class ContactsAdapter(private val contacts: List<Contact>) : RecyclerView.Adapte
     }
 
     override fun getItemCount() = contacts.size
+
+    fun sortByLastContactedDate() {
+        contacts = contacts.sortedWith(compareBy<Contact> { it.lastContactedDate }.thenBy { it.savedDate })
+        notifyDataSetChanged()
+    }
+
+    fun sortByName() {
+        contacts = contacts.sortedWith(compareBy<Contact> {it.name})
+        notifyDataSetChanged()
+    }
+    fun updateContacts(sortedContacts: List<Contact>) {
+        contacts = sortedContacts
+        notifyDataSetChanged()
+    }
 }
