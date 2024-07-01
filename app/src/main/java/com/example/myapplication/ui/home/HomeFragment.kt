@@ -15,6 +15,8 @@ import com.example.myapplication.R
 import com.google.gson.Gson
 import java.text.SimpleDateFormat
 import java.util.*
+import com.google.gson.reflect.TypeToken
+import android.content.Context
 
 class HomeFragment : Fragment() {
 
@@ -31,30 +33,31 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 연락처 정보 가져오기
-        val contacts = loadContactsFromJson()
+        val contacts = loadContactsFromSharedPreferences().toMutableList()
 
-        // RecyclerView 설정
-        contactsAdapter = ContactsAdapter(contacts)
+        if (contacts.isEmpty()) {
+            contacts.addAll(loadContactsFromJson())
+            saveContactsToSharedPreferences(contacts)
+        }
+
+        contactsAdapter = ContactsAdapter(contacts) { updatedContacts ->
+            saveContactsToSharedPreferences(updatedContacts)
+        }
         binding.contactsLayout.layoutManager = LinearLayoutManager(requireContext())
         binding.contactsLayout.adapter = contactsAdapter
 
-        // 추천순 보기 버튼 클릭 이벤트 처리
         binding.recommendButton.setOnClickListener {
             contactsAdapter.sortByLastContactedDate()
         }
 
-        // 가나다순 보기 버튼 클릭 이벤트 처리
         binding.sortButton.setOnClickListener{
             contactsAdapter.sortByName()
         }
 
-        // 연락처 추가 버튼 클릭 이벤트 처리
         binding.addContactButton.setOnClickListener {
             showAddContactDialog()
         }
 
-        // 검색 기능 이벤트 처리
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
@@ -101,6 +104,7 @@ class HomeFragment : Fragment() {
         val updatedContacts = contactsAdapter.getContacts().toMutableList()
         updatedContacts.add(contact)
         contactsAdapter.updateContacts(updatedContacts)
+        saveContactsToSharedPreferences(updatedContacts)
     }
 
     override fun onDestroyView() {
@@ -113,4 +117,31 @@ class HomeFragment : Fragment() {
         val contactsData = Gson().fromJson(jsonString, ContactsData::class.java)
         return contactsData?.data ?: emptyList()
     }
+
+    private fun saveContactsToSharedPreferences(contacts: List<Contact>) {
+        val sharedPreferences = requireContext().getSharedPreferences("contacts_pref", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        val gson = Gson()
+        val json = gson.toJson(contacts)
+        editor.putString("contacts_list", json)
+        editor.apply()
+    }
+
+    private fun loadContactsFromSharedPreferences(): List<Contact> {
+        val sharedPreferences = requireContext().getSharedPreferences("contacts_pref", Context.MODE_PRIVATE)
+        val gson = Gson()
+        val json = sharedPreferences.getString("contacts_list", null)
+        val type = object : TypeToken<List<Contact>>() {}.type
+        return if (json != null) {
+            gson.fromJson(json, type)
+        } else {
+            emptyList()
+        }
+    }
 }
+
+
+
+
+
+

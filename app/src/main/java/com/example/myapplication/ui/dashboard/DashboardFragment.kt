@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentDashboardBinding
+import org.json.JSONArray
+import org.json.JSONObject
+import java.lang.Exception
 
 // 각 이미지에 대한 데이터를 저장할 data class
 data class ImageData(
@@ -49,6 +53,7 @@ class DashboardFragment : Fragment() {
         uri?.let {
             // 선택된 이미지 URI가 있으면 ImageData 객체를 생성하여 리스트의 처음에 추가
             imageDataList.add(0, ImageData(imageUri = it))
+            saveImageDataList()
             gridAdapter.notifyDataSetChanged()
         }
     }
@@ -66,6 +71,7 @@ class DashboardFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val gridView: GridView = binding.gridView
+        loadImageDataList()
         gridAdapter = MyGridAdapter(requireContext(), imageDataList)
 
         gridView.adapter = gridAdapter
@@ -79,6 +85,47 @@ class DashboardFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun saveImageDataList() {
+        val sharedPreferences = requireContext().getSharedPreferences("image_data", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        val jsonArray = JSONArray()
+
+        imageDataList.forEach { imageData ->
+            val jsonObject = JSONObject().apply {
+                put("imageResId", imageData.imageResId)
+                put("imageUri", imageData.imageUri?.toString())
+                put("person", imageData.person)
+                put("date", imageData.date)
+                put("memory", imageData.memory)
+            }
+            jsonArray.put(jsonObject)
+        }
+
+        editor.putString("imageDataList", jsonArray.toString())
+        editor.apply()
+    }
+
+    private fun loadImageDataList() {
+        val sharedPreferences = requireContext().getSharedPreferences("image_data", Context.MODE_PRIVATE)
+        val jsonString = sharedPreferences.getString("imageDataList", null)
+
+        if (!jsonString.isNullOrEmpty()) {
+            val jsonArray = JSONArray(jsonString)
+            imageDataList.clear()
+
+            for (i in 0 until jsonArray.length()) {
+                val jsonObject = jsonArray.getJSONObject(i)
+                val imageResId = if (jsonObject.isNull("imageResId")) null else jsonObject.getInt("imageResId")
+                val imageUri = if (jsonObject.isNull("imageUri")) null else Uri.parse(jsonObject.getString("imageUri"))
+                val person = if (jsonObject.isNull("person")) null else jsonObject.getString("person")
+                val date = if (jsonObject.isNull("date")) null else jsonObject.getString("date")
+                val memory = if (jsonObject.isNull("memory")) null else jsonObject.getString("memory")
+
+                imageDataList.add(ImageData(imageResId, imageUri, person, date, memory))
+            }
+        }
     }
 
     inner class MyGridAdapter(private val context: Context, private val dataList: List<ImageData>) : BaseAdapter() {
@@ -105,13 +152,17 @@ class DashboardFragment : Fragment() {
             val imageData = dataList[position]
 
             // 이미지를 로드하고 리사이즈
-            val bitmap = if (imageData.imageResId != null) {
-                BitmapFactory.decodeResource(context.resources, imageData.imageResId)
-            } else {
-                val inputStream = context.contentResolver.openInputStream(imageData.imageUri!!)
-                BitmapFactory.decodeStream(inputStream)
+            try {
+                val bitmap = if (imageData.imageResId != null) {
+                    BitmapFactory.decodeResource(context.resources, imageData.imageResId)
+                } else {
+                    val inputStream = context.contentResolver.openInputStream(imageData.imageUri!!)
+                    BitmapFactory.decodeStream(inputStream)
+                }
+                imageView.setImageBitmap(bitmap)
+            } catch (e: Exception) {
+                Log.e("DashboardFragment", "Error loading image", e)
             }
-            imageView.setImageBitmap(bitmap)
 
             // 클릭 리스너: 입력된 데이터가 있는 경우와 없는 경우를 구분
             imageView.setOnClickListener {
@@ -152,6 +203,9 @@ class DashboardFragment : Fragment() {
                         imageData.date = dateEditText.text.toString()
                         imageData.memory = memoryEditText.text.toString()
 
+                        // 변경 사항을 SharedPreferences에 저장
+                        saveImageDataList()
+
                         // 다이얼로그를 닫음
                         dlg.create().dismiss()
                     }
@@ -167,3 +221,13 @@ class DashboardFragment : Fragment() {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+

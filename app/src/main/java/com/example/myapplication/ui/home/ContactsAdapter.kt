@@ -9,7 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.ui.home.Contact
 
-class ContactsAdapter(private var contacts: List<Contact>) : RecyclerView.Adapter<ContactsAdapter.ViewHolder>(), Filterable {
+class ContactsAdapter(
+    private var contacts: List<Contact>,
+    private val onContactsUpdated: (List<Contact>) -> Unit
+) : RecyclerView.Adapter<ContactsAdapter.ViewHolder>(), Filterable {
 
     private var filteredContacts: List<Contact> = contacts
 
@@ -18,21 +21,31 @@ class ContactsAdapter(private var contacts: List<Contact>) : RecyclerView.Adapte
         val phoneTextView: TextView = itemView.findViewById(R.id.phoneTextView)
 
         init {
-            itemView.setOnClickListener {
+            itemView.setOnLongClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
-                    showDetailsDialog(filteredContacts[position], itemView)
+                    showDeleteDialog(filteredContacts[position])
                 }
+                true
             }
         }
 
-        private fun showDetailsDialog(contact: Contact, view: View) {
-            val builder = AlertDialog.Builder(view.context)
-            builder.setTitle("Contact Details")
-            builder.setMessage("Name: ${contact.name}\nPhone: ${contact.phoneNumber}\n연락처 저장 날짜: ${contact.savedDate}\n최근 연락 날짜: ${contact.lastContactedDate}")
-            builder.setPositiveButton("OK", null)
-            notifyDataSetChanged()
-            builder.show()
+        private fun showDeleteDialog(contact: Contact) {
+            AlertDialog.Builder(itemView.context)
+                .setTitle("연락처 삭제")
+                .setMessage("정말로 삭제하시겠습니까?")
+                .setPositiveButton("삭제") { _, _ ->
+                    deleteContact(contact)
+                }
+                .setNegativeButton("취소", null)
+                .show()
+        }
+
+        private fun deleteContact(contact: Contact) {
+            val updatedContacts = contacts.toMutableList()
+            updatedContacts.remove(contact)
+            updateContacts(updatedContacts)
+            onContactsUpdated(updatedContacts)
         }
     }
 
@@ -92,3 +105,4 @@ class ContactsAdapter(private var contacts: List<Contact>) : RecyclerView.Adapte
         notifyDataSetChanged()
     }
 }
+
