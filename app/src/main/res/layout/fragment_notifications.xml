@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,26 +8,55 @@
     tools:context=".ui.notifications.NotificationsFragment">
 
     <TextView
-        android:id="@+id/textMemory"
-        android:layout_width="match_parent"
+        android:id="@+id/textDate"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:text="오늘은 0000-00-00"
+        android:textSize="20sp"
+        android:layout_gravity="center"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/memoryPic" />
+
+    <ImageView
+        android:id="@+id/memoryPic"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="32dp"
+        android:contentDescription="@string/todo"
+        app:layout_constraintDimensionRatio="H, 9:10"
+        app:layout_constraintTop_toBottomOf="@id/textDate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/textMemory" />
+
+    <TextView
+        android:id="@+id/textMemory"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="16dp"
         android:textAlignment="center"
         android:textSize="20sp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toStartOf="@id/memoryPic"
+        app:layout_constraintEnd_toEndOf="@id/memoryPic"
+        app:layout_constraintTop_toBottomOf="@id/memoryPic" />
 
     <TextView
         android:id="@+id/textMessage"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="16dp"
         android:textAlignment="center"
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@id/textMemory"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textMemory" />
 
     <Button
         android:id="@+id/button1"
@@ -34,9 +64,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:text="@string/call"
-        app:layout_constraintTop_toBottomOf="@id/textMessage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/button2"
+        app:layout_constraintTop_toBottomOf="@id/textMessage"
         app:layout_constraintWidth_percent="0.5" />
 
     <Button
@@ -45,8 +75,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:text="@string/message"
-        app:layout_constraintTop_toBottomOf="@id/textMessage"
         app:layout_constraintStart_toEndOf="@id/button1"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textMessage"
         app:layout_constraintWidth_percent="0.5" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
