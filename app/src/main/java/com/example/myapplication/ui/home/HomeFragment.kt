@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.databinding.FragmentHomeBinding
 import com.google.gson.Gson
+
 
 class HomeFragment : Fragment() {
 
@@ -42,6 +44,18 @@ class HomeFragment : Fragment() {
         binding.sortButton.setOnClickListener{
             contactsAdapter.sortByName()
         }
+
+        // 검색 기능 이벤트 처리
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                contactsAdapter.filter.filter(newText)
+                return false
+            }
+        })
     }
 
     override fun onDestroyView() {

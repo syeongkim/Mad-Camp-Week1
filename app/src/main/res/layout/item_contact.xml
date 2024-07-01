@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:text="@string/name"
         android:textSize="16sp" />
 
@@ -22,7 +22,7 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="2dp"
         android:gravity="center"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:text="@string/phone"
         android:textSize="16sp" />
 </LinearLayout>
