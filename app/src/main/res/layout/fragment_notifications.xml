@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/kakao_blue"
     tools:context=".ui.notifications.NotificationsFragment">
 
     <TextView
@@ -12,6 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="오늘은 0000-00-00"
+        android:textColor="@color/black"
         android:textSize="20sp"
         android:layout_gravity="center"
         app:layout_constraintHorizontal_bias="0.5"
@@ -41,6 +43,7 @@
         android:layout_marginTop="16dp"
         android:textAlignment="center"
         android:textSize="20sp"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@id/memoryPic"
         app:layout_constraintEnd_toEndOf="@id/memoryPic"
         app:layout_constraintTop_toBottomOf="@id/memoryPic" />
@@ -54,6 +57,7 @@
         android:layout_marginTop="16dp"
         android:textAlignment="center"
         android:textSize="20sp"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textMemory" />
@@ -64,6 +68,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:text="@string/call"
+        android:backgroundTint="@color/kakao_yellow"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/button2"
         app:layout_constraintTop_toBottomOf="@id/textMessage"
@@ -75,6 +81,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:text="@string/message"
+        android:backgroundTint="@color/kakao_yellow"
+        android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@id/button1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textMessage"
