@@ -31,16 +31,21 @@ class DashboardFragment : Fragment() {
 
     // 각 이미지에 대한 데이터 리스트를 초기화
     private val imageDataList = mutableListOf(
+        ImageData(R.drawable.pic1, "진유하", "2023-07-01", "즐거운 하루"),
+        ImageData(R.drawable.pic2, "조승완", "2023-07-02", "멋진 순간"),
+        ImageData(R.drawable.pic3, "정민규", "2023-07-03", "행복한 시간"),
+        ImageData(R.drawable.pic4, "장세일", "2023-07-04", "기억에 남는 날"),
+        ImageData(R.drawable.pic5, "윤우성", "2023-07-05", "환상적인 경험"),
+        ImageData(R.drawable.pic6, "안세혁", "2023-07-06", "소중한 추억"),
+        ImageData(R.drawable.pic7, "안규찬", "2023-07-07", "즐거운 기억"),
+        ImageData(R.drawable.pic8), ImageData(R.drawable.pic9), ImageData(R.drawable.pic10),
         ImageData(R.drawable.pic1), ImageData(R.drawable.pic2), ImageData(R.drawable.pic3),
         ImageData(R.drawable.pic4), ImageData(R.drawable.pic5), ImageData(R.drawable.pic6),
         ImageData(R.drawable.pic7), ImageData(R.drawable.pic8), ImageData(R.drawable.pic9),
         ImageData(R.drawable.pic10), ImageData(R.drawable.pic1), ImageData(R.drawable.pic2),
         ImageData(R.drawable.pic3), ImageData(R.drawable.pic4), ImageData(R.drawable.pic5),
         ImageData(R.drawable.pic6), ImageData(R.drawable.pic7), ImageData(R.drawable.pic8),
-        ImageData(R.drawable.pic9), ImageData(R.drawable.pic10), ImageData(R.drawable.pic1),
-        ImageData(R.drawable.pic2), ImageData(R.drawable.pic3), ImageData(R.drawable.pic4),
-        ImageData(R.drawable.pic5), ImageData(R.drawable.pic6), ImageData(R.drawable.pic7),
-        ImageData(R.drawable.pic8), ImageData(R.drawable.pic9), ImageData(R.drawable.pic10)
+        ImageData(R.drawable.pic9), ImageData(R.drawable.pic10)
     )
 
     override fun onCreateView(
