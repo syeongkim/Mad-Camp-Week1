@@ -1,0 +1,45 @@
+[
+  {
+      "imageResId": 1,
+      "person": "진유하",
+      "date": "2023-07-01",
+      "memory": "즐거운 하루"
+    },
+    {
+      "imageResId": 2,
+      "person": "조승완",
+      "date": "2023-07-02",
+      "memory": "멋진 순간"
+    },
+    {
+      "imageResId": 3,
+      "person": "정민규",
+      "date": "2023-07-03",
+      "memory": "멋진 순간"
+    },
+    {
+      "imageResId": 4,
+      "person": "장세일",
+      "date": "2023-07-04",
+      "memory": "멋진 순간"
+    },
+    {
+      "imageResId": 5,
+      "person": "윤우성",
+      "date": "2023-07-05",
+      "memory": "멋진 순간"
+    },
+    {
+      "imageResId": 6,
+      "person": "안세혁",
+      "date": "2023-07-06",
+      "memory": "멋진 순간"
+    },
+    {
+      "imageResId": 7,
+      "person": "안규찬",
+      "date": "2023-07-07",
+      "memory": "멋진 순간"
+    }
+
+]
