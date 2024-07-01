@@ -31,6 +31,7 @@ class ContactsAdapter(private var contacts: List<Contact>) : RecyclerView.Adapte
             builder.setTitle("Contact Details")
             builder.setMessage("Name: ${contact.name}\nPhone: ${contact.phoneNumber}\n연락처 저장 날짜: ${contact.savedDate}\n최근 연락 날짜: ${contact.lastContactedDate}")
             builder.setPositiveButton("OK", null)
+            notifyDataSetChanged()
             builder.show()
         }
     }
@@ -80,5 +81,14 @@ class ContactsAdapter(private var contacts: List<Contact>) : RecyclerView.Adapte
             }
         }
     }
-}
 
+    fun getContacts(): List<Contact> {
+        return contacts
+    }
+
+    fun updateContacts(newContacts: List<Contact>) {
+        contacts = newContacts
+        filteredContacts = newContacts
+        notifyDataSetChanged()
+    }
+}
