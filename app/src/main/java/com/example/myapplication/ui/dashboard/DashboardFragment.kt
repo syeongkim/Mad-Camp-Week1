@@ -30,7 +30,7 @@ class DashboardFragment : Fragment() {
     private val binding get() = _binding!!
 
     // 각 이미지에 대한 데이터 리스트를 초기화
-    private val imageDataList = mutableListOf(
+    val imageDataList = mutableListOf(
         ImageData(R.drawable.pic1, "진유하", "2023-07-01", "즐거운 하루"),
         ImageData(R.drawable.pic2, "조승완", "2023-07-02", "멋진 순간"),
         ImageData(R.drawable.pic3, "정민규", "2023-07-03", "행복한 시간"),
