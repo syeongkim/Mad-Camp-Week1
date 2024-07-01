@@ -10,6 +10,7 @@
         android:id="@+id/gridView"
         android:gravity="center"
         android:numColumns="4"
-        />
-
+        android:paddingBottom="50dp"
+    android:clipToPadding="false"
+    />
 </LinearLayout>
