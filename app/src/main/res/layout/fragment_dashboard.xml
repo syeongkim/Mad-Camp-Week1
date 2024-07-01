@@ -10,13 +10,7 @@
         android:id="@+id/gridView"
         android:gravity="center"
         android:numColumns="4"
-        />
-
-    <TextView
-        android:id="@+id/tvDatabaseContent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:text="Database Content"
-        android:textSize="18sp" />
+        android:paddingBottom="50dp"
+    android:clipToPadding="false"
+    />
 </LinearLayout>
