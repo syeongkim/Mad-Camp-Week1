@@ -1,5 +1,7 @@
 package com.example.myapplication.ui.dashboard
 
+import Image
+import ImageDatabase
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.os.Bundle
@@ -7,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.EditText
 import android.widget.GridView
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
@@ -33,6 +36,15 @@ class DashboardFragment : Fragment() {
         val gridAdapter = MyGridAdapter(requireContext())
 
         gridView.adapter = gridAdapter
+
+        // 데이터베이스 내용 조회 및 표시
+//        val dao = ImageDatabase.getInstance(requireContext()).imageDao()
+//        val images = dao.getAll() // 또는 필요한 쿼리를 사용하여 데이터를 가져옴
+//        val databaseContent = StringBuilder()
+//        for (image in images) {
+//            databaseContent.append("${image.name}, ${image.date}, ${image.comment}\n")
+//        }
+//        binding.tvDatabaseContent.text = databaseContent.toString()
     }
 
     override fun onDestroyView() {
@@ -70,6 +82,7 @@ class DashboardFragment : Fragment() {
                 setPadding(5, 5, 5, 5)
             }
 
+
             // Load and resize the image
             val options = BitmapFactory.Options().apply {
                 inJustDecodeBounds = true
@@ -86,7 +99,7 @@ class DashboardFragment : Fragment() {
                 val ivPic: ImageView = dialogView.findViewById(R.id.ivPic)
                 ivPic.setImageResource(picID[position])
                 dlg.setTitle("큰 이미지")
-                dlg.setNegativeButton("닫기", null)
+                // dlg.setNegativeButton("닫기", null)
                 dlg.setView(dialogView)
                 dlg.show()
             }
@@ -108,6 +121,25 @@ class DashboardFragment : Fragment() {
             }
 
             return inSampleSize
+        }
+
+        fun onSaveClicked(view: View) {
+            val dialog = AlertDialog.Builder(requireContext()).apply {
+                setTitle("저장")
+                setPositiveButton("확인") { _, _ ->
+                    val editText = view.findViewById<EditText>(R.id.etComment)
+                    val comment = editText.text.toString()
+
+                    // Room Database에 데이터 추가
+                    val image = Image(name = "SomeName", date = "2024-06-29", comment = comment)
+                    val dao = ImageDatabase.getInstance(requireContext()).imageDao()
+                    dao.insert(image)
+                }
+                setNegativeButton("취소", null)
+                setView(view)
+            }.create()
+
+            dialog.show()
         }
     }
 }
