@@ -57,15 +57,6 @@ class DashboardFragment : Fragment() {
         // 어댑터를 생성하여 그리드뷰에 설정
         val gridAdapter = MyGridAdapter(requireContext(), imageDataList)
         gridView.adapter = gridAdapter
-
-        // 데이터베이스 내용 조회 및 표시
-//        val dao = ImageDatabase.getInstance(requireContext()).imageDao()
-//        val images = dao.getAll() // 또는 필요한 쿼리를 사용하여 데이터를 가져옴
-//        val databaseContent = StringBuilder()
-//        for (image in images) {
-//            databaseContent.append("${image.name}, ${image.date}, ${image.comment}\n")
-//        }
-//        binding.tvDatabaseContent.text = databaseContent.toString()
     }
 
     override fun onDestroyView() {
@@ -169,25 +160,6 @@ class DashboardFragment : Fragment() {
             }
 
             return inSampleSize
-        }
-
-        fun onSaveClicked(view: View) {
-            val dialog = AlertDialog.Builder(requireContext()).apply {
-                setTitle("저장")
-                setPositiveButton("확인") { _, _ ->
-                    val editText = view.findViewById<EditText>(R.id.etComment)
-                    val comment = editText.text.toString()
-
-                    // Room Database에 데이터 추가
-                    val image = Image(name = "SomeName", date = "2024-06-29", comment = comment)
-                    val dao = ImageDatabase.getInstance(requireContext()).imageDao()
-                    dao.insert(image)
-                }
-                setNegativeButton("취소", null)
-                setView(view)
-            }.create()
-
-            dialog.show()
         }
     }
 }
