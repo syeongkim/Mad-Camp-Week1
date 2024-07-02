@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -72,7 +71,7 @@ class NotificationsFragment : Fragment() {
 
         val today = LocalDate.now()
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-        var formattedDate = today.format(formatter)
+        var formattedDate = today.format(formatter).toString()
         textDate.text = "오늘은 $formattedDate 입니다!"
 
 
@@ -82,7 +81,7 @@ class NotificationsFragment : Fragment() {
 
         checkMatchingMemory(imageDataList, formattedDate, notificationsViewModel, textView1, textView2, memoryPic)
         checkMatchingBirthday(contacts, formattedDate, notificationsViewModel, textView1, textView2, memoryPic)
-        checkOldestContact(contacts, textView1, textView2, memoryPic)
+        checkOldestContact(contacts, formattedDate, notificationsViewModel, textView1, textView2, memoryPic)
 
         textDate.setOnClickListener {
             datePicker.visibility = View.VISIBLE
@@ -92,7 +91,7 @@ class NotificationsFragment : Fragment() {
             memoryPic.visibility = View.GONE
             button1.isEnabled = false
             button2.isEnabled = false
-            randomButton.isEnabled = false
+            randomButton.visibility = View.GONE
         }
         datePicker.setOnDateChangedListener { _, year, month, dayOfMonth ->
             hasMatchingMemory = false
@@ -108,15 +107,16 @@ class NotificationsFragment : Fragment() {
             memoryPic.visibility = View.VISIBLE
             button1.isEnabled = true
             button2.isEnabled = true
-            randomButton.isEnabled = true
+            randomButton.visibility = View.VISIBLE
             textDate.text = "오늘은 $formattedDate 입니다!"
 
             checkMatchingMemory(imageDataList, formattedDate, notificationsViewModel, textView1, textView2, memoryPic)
             checkMatchingBirthday(contacts, formattedDate, notificationsViewModel, textView1, textView2, memoryPic)
-            checkOldestContact(contacts, textView1, textView2, memoryPic)
+            checkOldestContact(contacts, formattedDate, notificationsViewModel, textView1, textView2, memoryPic)
         }
         randomButton.setOnClickListener {
-            checkRandomContact(contacts, textView1, textView2, memoryPic)
+            checkRandomContact(contacts, notificationsViewModel, textView1, textView2, memoryPic)
+            hasRandom = true
         }
 
         memoryPic.setOnClickListener {
@@ -175,28 +175,39 @@ class NotificationsFragment : Fragment() {
         textView2: TextView,
         memoryPic: ImageView
     ) {
+        var matchingMemories: MutableList<ImageData> = mutableListOf()
         imageDataList.forEach { imageData ->
             val date = imageData.date
             if (date != null) {
                 val parts = date.split("-", limit = 2)
                 if (parts.size > 1 && parts[1] == formattedDate.split("-", limit = 2)[1]) {
-                    person = imageData.person.toString()
-                    memoryDate = date
-                    memoryComment = imageData.memory.toString()
-                    val pastYearNum = formattedDate.split("-", limit = 2)[0].toInt() - parts[0].toInt()
-                    notificationsViewModel.text.observe(viewLifecycleOwner) {
-                        textView1.text = "${pastYearNum}년 전 오늘 생성된 추억이 있어요.\n${person}님께 지금 바로 연락해보세요!"
-                        messageContent = "자니..? 우리 그때 즐거웠는데.. 잘 지내?"
-                        textView2.text = messageContent
-                        imageResource = imageData.imageResId!!
-                        memoryPic.setImageResource(imageResource)
-                    }
-                    val contacts = loadContactsFromJson()
-                    phoneNumber = contacts.find { it.name == person }?.phoneNumber.toString()
-                    hasMatchingMemory = true
-                    Log.d("hasMatchingMemory", "$person $memoryDate $pastYearNum")
+                    matchingMemories.add(imageData)
                 }
             }
+        }
+        if (matchingMemories.size > 0) {
+            val matchingMemoryData = matchingMemories.random()
+            person = matchingMemoryData.person.toString()
+            memoryDate = matchingMemoryData.date.toString()
+            memoryComment = matchingMemoryData.memory.toString()
+            val pastYearNum = formattedDate.split("-", limit = 2)[0].toInt() - memoryDate.split("-", limit = 2)[0].toInt()
+            val messageContents: List<String> = listOf(
+                "자니...? 며칠 전에 옛날 사진첩을 보다가 우리가 함께했던 순간들이 떠올랐어. 그때 참 행복했었는데, 지금도 가끔 그리워져. 잘 지내고 있는지 궁금해서 연락해봤어.",
+                "자니...? 우연히 예전 사진들을 보다가 우리 추억이 생각나서 연락해봤어. 그때 참 많은 추억을 쌓았는데, 지금도 그 시절이 가끔 그리워. 잘 지내고 있지?",
+                "자니...? 얼마 전 사진첩을 정리하다가 우리가 함께했던 소중한 순간들이 떠올랐어. 그때의 기억들이 아직도 내 마음에 남아 있어. 잘 지내고 있는지 궁금해서 문득 연락해봤어.",
+                "자니...? 오랜만에 사진첩을 보다가 우리 함께했던 그때가 떠오르더라. 네가 잘 지내고 있는지 궁금해져서 이렇게 연락해봐. 요즘 어떻게 지내?",
+                "자니...? 옛날 사진을 보다가 우리가 함께 웃고 떠들던 그 순간들이 생각났어. 그 시절이 가끔 그리울 때가 많아. 시간 괜찮으면 오랜만에 만나서 이야기 좀 나눌래?"
+            )
+            messageContent = messageContents.random()
+            notificationsViewModel.text.observe(viewLifecycleOwner) {
+                textView1.text = "${pastYearNum}년 전 오늘 생성된 추억이 있어요.\n${person}님께 지금 바로 연락해보세요!"
+                textView2.text = messageContent
+                imageResource = matchingMemoryData.imageResId!!
+                memoryPic.setImageResource(imageResource)
+            }
+            val contacts = loadContactsFromJson()
+            phoneNumber = contacts.find { it.name == person }?.phoneNumber.toString()
+            hasMatchingMemory = true
         }
     }
 
@@ -209,25 +220,36 @@ class NotificationsFragment : Fragment() {
         textView2: TextView,
         memoryPic: ImageView
     ) {
+        var matchingBirthdays: MutableList<Contact> = mutableListOf()
         if (!hasMatchingMemory) {
             contacts.forEach { contact ->
                 val birthday = contact.birthday
                 if (birthday != null) {
                     val birthdayparts = birthday.split("-", limit = 2)
                     if (birthdayparts[1] == formattedDate.split("-", limit = 2)[1]) {
-                        val name = contact.name
-                        val age = calculateAge(birthday)
-                        val birthdayMessage = "오늘은 ${name} 님의 ${age+1} 번째 생일입니다! \n 생일 축하 메세지를 전송해보세요!"
-
-                        notificationsViewModel.text.observe(viewLifecycleOwner) {
-                            textView1.text = birthdayMessage
-                            textView2.text = "자니..? ${name}의 ${age+1} 번째 생일을 진심으로 축하해!"
-                        }
-                        val imageResource = context?.resources?.getIdentifier(contact.picture, "drawable", context?.packageName) ?: R.drawable.madcamp
-                        memoryPic.setImageResource(imageResource)
-                        hasMatchingBirthday = true
+                        matchingBirthdays.add(contact)
                     }
                 }
+            }
+            if (matchingBirthdays.size > 0) {
+                val matchingBirthday = matchingBirthdays.random()
+                val name = matchingBirthday.name
+                val age = matchingBirthday.birthday?.let { calculateAge(it) }
+                val birthdayNotifyMessage = "오늘은 $name 님의 ${age?.plus(1)} 번째 생일입니다! \n 생일 축하 메세지를 전송해보세요!"
+                val messageContents: List<String> = listOf(
+                    "자니...? 오랜만에 연락해서 미안해. 오늘 네 생일인 거 잊지 않았어. 생일 진심으로 축하해! 잘 지내고 있지? 시간이 너무 빨리 지나갔네. 조만간 얼굴 보고 이야기 나누자!",
+                    "자니...? 요즘 어떻게 지내? 오늘 네 생일이라는 걸 생각하니 그냥 지나칠 수가 없었어. 생일 정말 축하해! 오랜만에 네 목소리도 듣고 싶은데, 언제 한번 연락할게.",
+                    "자니...? 오랜만에 연락해서 놀랐지? 오늘 네 생일이라 생각이 나서 이렇게 연락해. 생일 축하하고, 네가 있어 항상 고마워. 시간이 되면 만나서 축하해주고 싶어.",
+                    "자니...? 요즘 잘 지내고 있지? 오늘 네 생일이라 그냥 넘어갈 수 없어서 이렇게 연락해. 생일 축하해! 항상 건강하고 행복하길 바래. 조만간 얼굴 보자!",
+                    "자니...? 오늘 네 생일이라 생각나서 연락했어. 생일 진심으로 축하해! 요즘 어떻게 지내고 있어? 오랜만에 만나서 이야기 나누고 싶어. 답장 기다릴게!"
+                )
+                notificationsViewModel.text.observe(viewLifecycleOwner) {
+                    textView1.text = birthdayNotifyMessage
+                    textView2.text = messageContents.random()
+                }
+                val imageResource = context?.resources?.getIdentifier(matchingBirthday.picture, "drawable", context?.packageName) ?: R.drawable.madcamp
+                memoryPic.setImageResource(imageResource)
+                hasMatchingBirthday = true
             }
         }
     }
@@ -235,23 +257,38 @@ class NotificationsFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun checkOldestContact(
         contacts: List<Contact>,
+        formattedDate: String,
+        notificationsViewModel: NotificationsViewModel,
         textView1: TextView,
         textView2: TextView,
         memoryPic: ImageView
     ) {
         if (!hasMatchingMemory && !hasMatchingBirthday) {
-            val oldestContact = findOldestContact(contacts)
-            if (oldestContact != null) {
-                val lastContactedDate = LocalDate.parse(oldestContact.lastContactedDate)
-                val daysSinceLastContact = ChronoUnit.DAYS.between(lastContactedDate, LocalDate.now())
-
+            var matchingOldestContacts: MutableList<Contact> = mutableListOf()
+            contacts.forEach { contact ->
+                if (ChronoUnit.DAYS.between(LocalDate.parse(contact.lastContactedDate), LocalDate.parse(formattedDate)) >= 730) {
+                    matchingOldestContacts.add(contact)
+                }
+            }
+            if (matchingOldestContacts.size > 0) {
+                val oldestContact = matchingOldestContacts.random()
                 person = oldestContact.name
-                textView1.text = "${person}님과 연락한 지 벌써 ${daysSinceLastContact}일이 지났어요.\n ${oldestContact.name} 님께 지금 바로 연락해보세요!"
-                messageContent = "자니..? 오랜만이다. \n잘 지내고 있어? 조만간 한 번 보자~"
-                textView2.text = messageContent
+                val messageContents: List<String> = listOf(
+                    "자니...? 정말 오랜만이야. 요즘 어떻게 지내고 있어? 문득 네 생각이 나서 연락해봤어. 잘 지내고 있지? 시간 되면 오랜만에 만나서 이야기 나누자!",
+                    "자니...? 오랜만에 연락해서 놀랐지? 요즘 어떻게 지내? 예전 사진첩을 보다가 네가 생각나서 연락했어. 오랜만에 만나서 옛날 이야기 나누면 좋겠다.",
+                    "자니...? 정말 오랜만이야. 네가 잘 지내고 있는지 궁금해서 연락해봤어. 요즘 어떻게 지내? 조만간 만나서 근황도 나누고 좋은 시간 보내고 싶어.",
+                    "자니...? 너무 오랜만이야! 요즘 어떻게 지내? 나도 바쁘게 지냈는데, 네 생각이 나서 연락했어. 시간 되면 오랜만에 만나서 근황도 나누고 이야기도 좀 하자.",
+                    "자니...? 오랜만에 네가 생각나서 연락해봤어. 요즘 어떻게 지내? 잘 지내고 있지? 오랜만에 만나서 그동안 못 나눈 이야기들 나눠보자!"
+                )
+                messageContent = messageContents.random()
+                notificationsViewModel.text.observe(viewLifecycleOwner) {
+                    val daysSinceLastContact = ChronoUnit.DAYS.between(LocalDate.parse(oldestContact.lastContactedDate), LocalDate.parse(formattedDate))
+                    textView1.text = "${person}님과 연락한 지 벌써 ${daysSinceLastContact}일이 지났어요.\n ${person} 님께 지금 바로 연락해보세요!"
+                    textView2.text = messageContent
+                    imageResource = context?.resources?.getIdentifier(oldestContact.picture, "drawable", context?.packageName) ?: R.drawable.madcamp
+                    memoryPic.setImageResource(imageResource)
+                }
                 phoneNumber = oldestContact.phoneNumber
-                imageResource = context?.resources?.getIdentifier(oldestContact.picture, "drawable", context?.packageName) ?: R.drawable.madcamp
-                memoryPic.setImageResource(imageResource)
                 hasOldestContact = true
             }
         }
@@ -260,25 +297,36 @@ class NotificationsFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun checkRandomContact(
         contacts: List<Contact>,
+        notificationsViewModel: NotificationsViewModel,
         textView1: TextView,
         textView2: TextView,
         memoryPic: ImageView
     ) {
-        val random = Random()
-        val randomIndex = random.nextInt(contacts.size)
-        val randomContact = contacts[randomIndex]
+        if (hasRandom) {
+            val random = Random()
+            val randomIndex = random.nextInt(contacts.size)
+            val randomContact = contacts[randomIndex]
 
-        val lastContactedDate = LocalDate.parse(randomContact.lastContactedDate)
-        val daysSinceLastContact = ChronoUnit.DAYS.between(lastContactedDate, LocalDate.now())
+            val lastContactedDate = LocalDate.parse(randomContact.lastContactedDate)
+            val daysSinceLastContact = ChronoUnit.DAYS.between(lastContactedDate, LocalDate.now())
 
-        person = randomContact.name
-        textView1.text = "${person}님과 연락한 지 벌써 ${daysSinceLastContact}일이 지났어요.\n ${randomContact.name} 님께 지금 바로 연락해보세요!"
-        messageContent = "자니..? 오랜만이다. \n잘 지내고 있어? 조만간 한 번 보자~"
-        textView2.text = messageContent
-        phoneNumber = randomContact.phoneNumber
-        imageResource = context?.resources?.getIdentifier(randomContact.picture, "drawable", context?.packageName) ?: R.drawable.madcamp
-        memoryPic.setImageResource(imageResource)
-        hasRandom = true
+            val person = randomContact.name
+            val messageContents: List<String> = listOf(
+                "자니...? 정말 오랜만이야. 요즘 어떻게 지내고 있어? 문득 네 생각이 나서 연락해봤어. 잘 지내고 있지? 시간 되면 오랜만에 만나서 이야기 나누자!",
+                "자니...? 오랜만에 연락해서 놀랐지? 요즘 어떻게 지내? 예전 사진첩을 보다가 네가 생각나서 연락했어. 오랜만에 만나서 옛날 이야기 나누면 좋겠다.",
+                "자니...? 정말 오랜만이야. 네가 잘 지내고 있는지 궁금해서 연락해봤어. 요즘 어떻게 지내? 조만간 만나서 근황도 나누고 좋은 시간 보내고 싶어.",
+                "자니...? 너무 오랜만이야! 요즘 어떻게 지내? 나도 바쁘게 지냈는데, 네 생각이 나서 연락했어. 시간 되면 오랜만에 만나서 근황도 나누고 이야기도 좀 하자.",
+                "자니...? 오랜만에 네가 생각나서 연락해봤어. 요즘 어떻게 지내? 잘 지내고 있지? 오랜만에 만나서 그동안 못 나눈 이야기들 나눠보자!"
+            )
+            val messageContent = messageContents.random()
+            notificationsViewModel.text.observe(viewLifecycleOwner) {
+                textView1.text = "${person}님과 연락한 지 벌써 ${daysSinceLastContact}일이 지났어요.\n ${person} 님께 지금 바로 연락해보세요!"
+                textView2.text = messageContent
+                imageResource = context?.resources?.getIdentifier(randomContact.picture, "drawable", context?.packageName) ?: R.drawable.madcamp
+                memoryPic.setImageResource(imageResource)
+            }
+            phoneNumber = randomContact.phoneNumber
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -299,7 +347,9 @@ class NotificationsFragment : Fragment() {
         return contactsData?.data ?: emptyList()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun findOldestContact(contacts: List<Contact>): Contact? {
         return contacts.minByOrNull { LocalDate.parse(it.lastContactedDate) }
     }
+
 }
