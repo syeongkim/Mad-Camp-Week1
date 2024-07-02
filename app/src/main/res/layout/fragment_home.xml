@@ -11,14 +11,14 @@
         android:id="@+id/cstLyTop"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintWidth_percent="1.0">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="1.0">
 
         <Button
             android:id="@+id/recommendButton"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:backgroundTint="@color/kakao_yellow"
@@ -33,7 +33,7 @@
 
         <Button
             android:id="@+id/sortButton"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="@string/sort"
@@ -47,7 +47,7 @@
 
         <Button
             android:id="@+id/addContactButton"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/kakao_yellow"
             android:fontFamily="@font/nanumbarunpen"
@@ -57,55 +57,56 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/sortButton"
             app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-<androidx.constraintlayout.widget.ConstraintLayout
-android:id="@+id/cstLyMid"
-android:layout_width="0dp"
-android:layout_height="0dp"
-app:layout_constraintEnd_toEndOf="parent"
-app:layout_constraintHeight_percent="0.1"
-app:layout_constraintStart_toStartOf="parent"
-app:layout_constraintTop_toBottomOf="@+id/cstLyTop"
-app:layout_constraintWidth_percent="1">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cstLyMid"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cstLyTop"
+        app:layout_constraintWidth_percent="1">
 
-<androidx.constraintlayout.widget.Guideline
-    android:id="@+id/guideline"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    app:layout_constraintGuide_begin="20dp" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="20dp" />
 
-<androidx.appcompat.widget.SearchView
-    android:id="@+id/searchView"
-    android:layout_width="409dp"
-    android:layout_height="46dp"
-    tools:layout_editor_absoluteX="61dp"
-    tools:layout_editor_absoluteY="17dp"
-    tools:ignore="MissingConstraints" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="409dp"
+            android:layout_height="46dp"
+            tools:layout_editor_absoluteX="61dp"
+            tools:layout_editor_absoluteY="17dp"
+            tools:ignore="MissingConstraints" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-<androidx.constraintlayout.widget.ConstraintLayout
-android:id="@+id/cstLyBottom"
-android:layout_width="0dp"
-android:layout_height="0dp"
-app:layout_constraintEnd_toEndOf="parent"
-app:layout_constraintHeight_percent="0.8"
-app:layout_constraintStart_toStartOf="parent"
-app:layout_constraintTop_toBottomOf="@+id/cstLyMid"
-app:layout_constraintWidth_percent="1.0">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cstLyBottom"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cstLyMid"
+        app:layout_constraintWidth_percent="1.0">
 
-<androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/contactsLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
-    android:paddingBottom="10dp"
-    tools:layout_editor_absoluteX="4dp"
-    tools:layout_editor_absoluteY="79dp" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/contactsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp"
+            tools:layout_editor_absoluteX="4dp"
+            tools:layout_editor_absoluteY="79dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
 
