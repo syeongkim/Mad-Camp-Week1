@@ -1,6 +1,7 @@
 package com.example.myapplication.ui.home
 
 import ContactsAdapter
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,13 +11,13 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.myapplication.databinding.FragmentHomeBinding
 import com.example.myapplication.R
+import com.example.myapplication.databinding.FragmentHomeBinding
 import com.google.gson.Gson
-import java.text.SimpleDateFormat
-import java.util.*
 import com.google.gson.reflect.TypeToken
-import android.content.Context
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class HomeFragment : Fragment() {
 
@@ -86,7 +87,7 @@ class HomeFragment : Fragment() {
                 val currentDate = getCurrentDate()
 
                 if (name.isNotEmpty() && phone.isNotEmpty()) {
-                    val newContact = Contact(name, phone, currentDate, currentDate)
+                    val newContact = Contact(name, phone, currentDate, currentDate, "null", "null")
                     addContact(newContact)
                 }
             }
