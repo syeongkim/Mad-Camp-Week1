@@ -16,43 +16,47 @@
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintWidth_percent="1.0">
 
-    <Button
-        android:id="@+id/recommendButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/recommend"
-        android:textColor="@color/black"
-        android:backgroundTint="@color/kakao_yellow"
-        app:layout_constraintEnd_toStartOf="@+id/sortButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
+        <Button
+            android:id="@+id/recommendButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/kakao_yellow"
+            android:fontFamily="@font/nanumbarunpen"
+            android:text="@string/recommend"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/sortButton"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/sortButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/sort"
-        android:textColor="@color/black"
-        android:backgroundTint="@color/kakao_yellow"
-        app:layout_constraintStart_toEndOf="@+id/recommendButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"/>
+        <Button
+            android:id="@+id/sortButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@string/sort"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/kakao_yellow"
+            android:fontFamily="@font/nanumbarunpen"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/addContactButton"
+            app:layout_constraintStart_toEndOf="@+id/recommendButton"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/addContactButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="연락처 추가"
-        android:textColor="@color/black"
-        android:backgroundTint="@color/kakao_yellow"
-        app:layout_constraintTop_toBottomOf="@+id/sortButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
+        <Button
+            android:id="@+id/addContactButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/kakao_yellow"
+            android:fontFamily="@font/nanumbarunpen"
+            android:text="연락처 추가"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/sortButton"
+            app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -97,7 +101,7 @@ app:layout_constraintWidth_percent="1.0">
     android:layout_height="match_parent"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
-    android:paddingBottom="150dp"
+    android:paddingBottom="10dp"
     tools:layout_editor_absoluteX="4dp"
     tools:layout_editor_absoluteY="79dp" />
 

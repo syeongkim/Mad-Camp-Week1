@@ -122,6 +122,8 @@ class NotificationsFragment : Fragment() {
         }
         randomButton.setOnClickListener {
             checkRandomContact(contacts, notificationsViewModel, textView1, textView2, memoryPic)
+            textView2.isEnabled = true
+            editMessage.visibility = View.GONE
             hasRandom = true
         }
 
@@ -175,6 +177,8 @@ class NotificationsFragment : Fragment() {
             val intent = Intent(Intent.ACTION_DIAL).apply {
                 data = Uri.parse("tel:$phoneNumber")
             }
+            editMessage.visibility = View.GONE
+            textView2.isEnabled = true
             startActivity(intent)
         }
 
@@ -184,6 +188,8 @@ class NotificationsFragment : Fragment() {
                 data = Uri.parse("smsto:$phoneNumber")
                 putExtra("sms_body", textView2.text.toString()) // 메시지 내용
             }
+            editMessage.visibility = View.GONE
+            textView2.isEnabled = true
             startActivity(intent)
         }
 

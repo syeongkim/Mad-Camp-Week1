@@ -10,12 +10,14 @@
         android:id="@+id/nameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/nanumbarunpen"
         android:hint="이름" />
 
     <EditText
         android:id="@+id/phoneEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="전화번호"
+        android:fontFamily="@font/nanumbarunpen"
+        android:hint="전화번호(ex. 010-1234-5678)"
         android:inputType="phone" />
 </LinearLayout>
