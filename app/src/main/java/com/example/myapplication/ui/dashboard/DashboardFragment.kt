@@ -37,9 +37,9 @@ class DashboardFragment : Fragment() {
 
     // 각 이미지에 대한 데이터 리스트를 초기화 (반복 없이 10개만)
     val imageDataList = mutableListOf(
-        ImageData(R.drawable.pic1, person = "진유하", date = "2023-07-01", memory = "즐거운 하루"),
+        ImageData(R.drawable.pic1, person = "진유하", date = "2023-07-02", memory = "즐거운 하루"),
         ImageData(R.drawable.pic2, person = "조승완", date = "2023-07-02", memory = "멋진 순간"),
-        ImageData(R.drawable.pic3, person = "정민규", date = "2023-07-03", memory = "행복한 시간"),
+        ImageData(R.drawable.pic3, person = "정민규", date = "2023-07-02", memory = "행복한 시간"),
         ImageData(R.drawable.pic4, person = "장세일", date = "2023-07-04", memory = "기억에 남는 날"),
         ImageData(R.drawable.pic5, person = "윤우성", date = "2023-07-05", memory = "환상적인 경험"),
         ImageData(R.drawable.pic6, person = "안세혁", date = "2023-07-06", memory = "소중한 추억"),

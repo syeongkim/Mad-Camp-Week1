@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.notifications
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -7,6 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.DatePicker
 import android.widget.EditText
@@ -67,6 +69,8 @@ class NotificationsFragment : Fragment() {
         val button1: Button = binding.button1
         val button2: Button = binding.button2
         val randomButton: Button = binding.randomButton
+        val editMessage: TextView = binding.editMessage
+
 
 
         val today = LocalDate.now()
@@ -92,6 +96,7 @@ class NotificationsFragment : Fragment() {
             button1.isEnabled = false
             button2.isEnabled = false
             randomButton.visibility = View.GONE
+            editMessage.visibility = View.GONE
         }
         datePicker.setOnDateChangedListener { _, year, month, dayOfMonth ->
             hasMatchingMemory = false
@@ -108,6 +113,7 @@ class NotificationsFragment : Fragment() {
             button1.isEnabled = true
             button2.isEnabled = true
             randomButton.visibility = View.VISIBLE
+            editMessage.visibility = View.GONE
             textDate.text = "오늘은 $formattedDate 입니다!"
 
             checkMatchingMemory(imageDataList, formattedDate, notificationsViewModel, textView1, textView2, memoryPic)
@@ -148,6 +154,23 @@ class NotificationsFragment : Fragment() {
             dlg?.show()
         }
 
+        textView2.setOnClickListener {
+            editMessage.visibility = View.VISIBLE
+            textView2.isEnabled = false
+            editMessage.text = textView2.text
+            editMessage.requestFocus()
+            val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.showSoftInput(editMessage, InputMethodManager.SHOW_IMPLICIT)
+        }
+
+        editMessage.setOnFocusChangeListener {_, hasFocus ->
+            if (!hasFocus) {
+                textView2.text = editMessage.text
+                textView2.isEnabled = true
+                editMessage.visibility = View.GONE
+            }
+        }
+
         binding.button1.setOnClickListener {
             val intent = Intent(Intent.ACTION_DIAL).apply {
                 data = Uri.parse("tel:$phoneNumber")
@@ -156,9 +179,10 @@ class NotificationsFragment : Fragment() {
         }
 
         binding.button2.setOnClickListener {
+            textView2.text = editMessage.text
             val intent = Intent(Intent.ACTION_SENDTO).apply {
                 data = Uri.parse("smsto:$phoneNumber")
-                putExtra("sms_body", messageContent) // 메시지 내용
+                putExtra("sms_body", textView2.text.toString()) // 메시지 내용
             }
             startActivity(intent)
         }
@@ -225,8 +249,7 @@ class NotificationsFragment : Fragment() {
             contacts.forEach { contact ->
                 val birthday = contact.birthday
                 if (birthday != null) {
-                    val birthdayparts = birthday.split("-", limit = 2)
-                    if (birthdayparts[1] == formattedDate.split("-", limit = 2)[1]) {
+                    if (birthday.split("-", limit = 2)[1] == formattedDate.split("-", limit = 2)[1]) {
                         matchingBirthdays.add(contact)
                     }
                 }
