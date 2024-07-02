@@ -128,7 +128,7 @@ class DashboardFragment : Fragment() {
         }
     }
 
-    inner class MyGridAdapter(private val context: Context, private val dataList: List<ImageData>) : BaseAdapter() {
+    inner class MyGridAdapter(private val context: Context, private val dataList: MutableList<ImageData>) : BaseAdapter() {
 
         override fun getCount(): Int {
             return dataList.size
@@ -215,6 +215,23 @@ class DashboardFragment : Fragment() {
 
                 dlg.setView(dialogView)
                 dlg.show()
+            }
+
+            // 롱 클릭 리스너: 이미지 삭제
+            imageView.setOnLongClickListener {
+                AlertDialog.Builder(context).apply {
+                    setTitle("이미지 삭제")
+                    setMessage("이 이미지를 삭제하시겠습니까?")
+                    setPositiveButton("삭제") { _, _ ->
+                        // 이미지 삭제
+                        imageDataList.removeAt(position)
+                        saveImageDataList()
+                        notifyDataSetChanged()
+                    }
+                    setNegativeButton("취소", null)
+                    show()
+                }
+                true
             }
 
             return imageView
