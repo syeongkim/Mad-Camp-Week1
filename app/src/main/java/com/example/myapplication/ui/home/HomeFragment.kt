@@ -87,7 +87,7 @@ class HomeFragment : Fragment() {
                 val currentDate = getCurrentDate()
 
                 if (name.isNotEmpty() && phone.isNotEmpty()) {
-                    val newContact = Contact(name, phone, currentDate, currentDate, "null", "null")
+                    val newContact = Contact(name, phone, currentDate, currentDate, null, null)
                     addContact(newContact)
                 }
             }

@@ -212,19 +212,21 @@ class NotificationsFragment : Fragment() {
         if (!hasMatchingMemory) {
             contacts.forEach { contact ->
                 val birthday = contact.birthday
-                val birthdayparts = birthday.split("-", limit = 2)
-                if (birthday != null && birthdayparts[1] == formattedDate.split("-", limit = 2)[1]) {
-                    val name = contact.name
-                    val age = calculateAge(birthday)
-                    val birthdayMessage = "오늘은 ${name} 님의 ${age+1} 번째 생일입니다! \n 생일 축하 메세지를 전송해보세요!"
+                if (birthday != null) {
+                    val birthdayparts = birthday.split("-", limit = 2)
+                    if (birthdayparts[1] == formattedDate.split("-", limit = 2)[1]) {
+                        val name = contact.name
+                        val age = calculateAge(birthday)
+                        val birthdayMessage = "오늘은 ${name} 님의 ${age+1} 번째 생일입니다! \n 생일 축하 메세지를 전송해보세요!"
 
-                    notificationsViewModel.text.observe(viewLifecycleOwner) {
-                        textView1.text = birthdayMessage
-                        textView2.text = "자니..? ${name}의 ${age+1} 번째 생일을 진심으로 축하해!"
+                        notificationsViewModel.text.observe(viewLifecycleOwner) {
+                            textView1.text = birthdayMessage
+                            textView2.text = "자니..? ${name}의 ${age+1} 번째 생일을 진심으로 축하해!"
+                        }
+                        val imageResource = context?.resources?.getIdentifier(contact.picture, "drawable", context?.packageName) ?: R.drawable.madcamp
+                        memoryPic.setImageResource(imageResource)
+                        hasMatchingBirthday = true
                     }
-                    val imageResource = context?.resources?.getIdentifier(contact.picture, "drawable", context?.packageName) ?: R.drawable.madcamp
-                    memoryPic.setImageResource(imageResource)
-                    hasMatchingBirthday = true
                 }
             }
         }
