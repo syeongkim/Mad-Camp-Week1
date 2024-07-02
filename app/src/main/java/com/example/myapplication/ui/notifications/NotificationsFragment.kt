@@ -276,7 +276,7 @@ class NotificationsFragment : Fragment() {
                     textView1.text = birthdayNotifyMessage
                     textView2.text = messageContents.random()
                 }
-                val imageResource = context?.resources?.getIdentifier(matchingBirthday.picture, "drawable", context?.packageName) ?: R.drawable.madcamp
+                val imageResource = context?.resources?.getIdentifier(matchingBirthday.picture, "drawable", context?.packageName) ?: R.drawable.logo
                 memoryPic.setImageResource(imageResource)
                 hasMatchingBirthday = true
             }
@@ -314,7 +314,7 @@ class NotificationsFragment : Fragment() {
                     val daysSinceLastContact = ChronoUnit.DAYS.between(LocalDate.parse(oldestContact.lastContactedDate), LocalDate.parse(formattedDate))
                     textView1.text = "${person}님과 연락한 지 벌써 ${daysSinceLastContact}일이 지났어요.\n ${person} 님께 지금 바로 연락해보세요!"
                     textView2.text = messageContent
-                    imageResource = context?.resources?.getIdentifier(oldestContact.picture, "drawable", context?.packageName) ?: R.drawable.madcamp
+                    imageResource = context?.resources?.getIdentifier(oldestContact.picture, "drawable", context?.packageName) ?: R.drawable.logo
                     memoryPic.setImageResource(imageResource)
                 }
                 phoneNumber = oldestContact.phoneNumber
@@ -351,7 +351,7 @@ class NotificationsFragment : Fragment() {
             notificationsViewModel.text.observe(viewLifecycleOwner) {
                 textView1.text = "${person}님과 연락한 지 벌써 ${daysSinceLastContact}일이 지났어요.\n ${person} 님께 지금 바로 연락해보세요!"
                 textView2.text = messageContent
-                imageResource = context?.resources?.getIdentifier(randomContact.picture, "drawable", context?.packageName) ?: R.drawable.madcamp
+                imageResource = context?.resources?.getIdentifier(randomContact.picture, "drawable", context?.packageName) ?: R.drawable.logo
                 memoryPic.setImageResource(imageResource)
             }
             phoneNumber = randomContact.phoneNumber

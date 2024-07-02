@@ -76,6 +76,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:outlineAmbientShadowColor="@color/black"
+            android:outlineSpotShadowColor="@color/black"
             android:backgroundTint="@color/black"
             app:layout_constraintGuide_begin="20dp" />
 
