@@ -10,5 +10,5 @@
     <string name="sort">가나다순 보기</string>
     <string name="call">전화 걸기</string>
     <string name="message">메세지 보내기</string>
-    <string name="random">랜덤</string>
+    <string name="random">랜덤 추천</string>
 </resources>

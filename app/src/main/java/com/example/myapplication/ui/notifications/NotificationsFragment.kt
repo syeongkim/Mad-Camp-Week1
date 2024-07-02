@@ -90,11 +90,11 @@ class NotificationsFragment : Fragment() {
         textDate.setOnClickListener {
             datePicker.visibility = View.VISIBLE
             textDate.visibility = View.GONE
-            textView1.isEnabled = false
-            textView2.isEnabled = false
+            textView1.visibility = View.GONE
+            textView2.visibility = View.GONE
             memoryPic.visibility = View.GONE
-            button1.isEnabled = false
-            button2.isEnabled = false
+            button1.visibility = View.GONE
+            button2.visibility = View.GONE
             randomButton.visibility = View.GONE
             editMessage.visibility = View.GONE
         }
@@ -107,11 +107,11 @@ class NotificationsFragment : Fragment() {
             formattedDate = formattedSelectedDate
             datePicker.visibility = View.GONE
             textDate.visibility = View.VISIBLE
-            textView1.isEnabled = true
-            textView2.isEnabled = true
+            textView1.visibility = View.VISIBLE
+            textView2.visibility = View.VISIBLE
             memoryPic.visibility = View.VISIBLE
-            button1.isEnabled = true
-            button2.isEnabled = true
+            button1.visibility = View.VISIBLE
+            button2.visibility = View.VISIBLE
             randomButton.visibility = View.VISIBLE
             editMessage.visibility = View.GONE
             textDate.text = "오늘은 $formattedDate 입니다!"
