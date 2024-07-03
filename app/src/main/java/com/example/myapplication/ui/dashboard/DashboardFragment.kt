@@ -39,20 +39,33 @@ class DashboardFragment : Fragment() {
 
     // 각 이미지에 대한 데이터 리스트를 초기화 (반복 없이 10개만)
     val imageDataList = mutableListOf(
-        ImageData(R.drawable.pic1, person = "진유하", date = "2023-07-02", memory = "즐거운 하루"),
-        ImageData(R.drawable.pic2, person = "조승완", date = "2023-07-02", memory = "멋진 순간"),
-        ImageData(R.drawable.pic3, person = "정민규", date = "2023-07-02", memory = "행복한 시간"),
-        ImageData(R.drawable.pic4, person = "장세일", date = "2023-07-04", memory = "기억에 남는 날"),
-        ImageData(R.drawable.pic5, person = "윤우성", date = "2023-07-05", memory = "환상적인 경험"),
-        ImageData(R.drawable.pic6, person = "안세혁", date = "2023-07-06", memory = "소중한 추억"),
-        ImageData(R.drawable.pic7, person = "안규찬", date = "2023-07-07", memory = "즐거운 기억"),
-        ImageData(R.drawable.pic8), ImageData(R.drawable.pic9), ImageData(R.drawable.pic10),
-        ImageData(R.drawable.pic11), ImageData(R.drawable.pic12), ImageData(R.drawable.pic13),
-        ImageData(R.drawable.pic14), ImageData(R.drawable.pic15), ImageData(R.drawable.pic16),
-        ImageData(R.drawable.pic17), ImageData(R.drawable.pic18), ImageData(R.drawable.pic19),
-        ImageData(R.drawable.pic20), ImageData(R.drawable.pic21), ImageData(R.drawable.pic22),
-        ImageData(R.drawable.pic23), ImageData(R.drawable.pic24), ImageData(R.drawable.pic25),
-        ImageData(R.drawable.pic26), ImageData(R.drawable.pic27)
+        ImageData(R.drawable.pic1, person = "안세혁", date = "2023-06-27", memory = "1분반 첫 회식"),
+        ImageData(R.drawable.pic2, person = "김민경", date = "2023-06-27", memory = "기숙사 들어가는 길에 본 삼색이 너무 귀엽따"),
+        ImageData(R.drawable.pic3, person = "", date = "", memory = ""),
+        ImageData(R.drawable.pic4, person = "박상우", date = "2023-06-28", memory = "거위들 일렬로 횡단보도 건너는데 한 마리 낙오됨.. 불쌍 ㅠ"),
+        ImageData(R.drawable.pic5, person = "", date = "", memory = ""),
+        ImageData(R.drawable.pic6, person = "조승완", date = "2023-06-28", memory = "카이스트 거위 실물영접.. 신기해"),
+        ImageData(R.drawable.pic7, person = "", date = "", memory = ""),
+        ImageData(R.drawable.pic8, person = "", date = "", memory = ""),
+        ImageData(R.drawable.pic9, person = "박영민", date = "2023-06-29", memory = "팀원의 선물 감동.. \uD83D\uDE22"),
+        ImageData(R.drawable.pic10, person = "신진영", date = "2023-06-29", memory = "다같이 우르르 서브웨이 간 날 알바생분께 죄송했다.. ㅋㅋ"),
+        ImageData(R.drawable.pic11, person = "", date = "", memory = ""),
+        ImageData(R.drawable.pic12, person = "강지우", date = "2023-06-30", memory = "밤늦게까지 개발하다 야식 냠냠"),
+        ImageData(R.drawable.pic13, person = "하은수", date = "2023-06-30", memory = "성심당 본점 첫 방문!"),
+        ImageData(R.drawable.pic14, person = "양세희", date = "2023-06-30", memory = "세희언니는 정말 금손이다.. 그저 감탄만"),
+        ImageData(R.drawable.pic15, person = "안규찬", date = "2023-06-30", memory = "규찬이 노래 듣고 소름돋음"),
+        ImageData(R.drawable.pic16, person = "", date = "", memory = ""),
+        ImageData(R.drawable.pic17, person = "", date = "", memory = ""),
+        ImageData(R.drawable.pic18, person = "", date = "", memory = ""),
+        ImageData(R.drawable.pic19, person = "김예락", date = "2023-06-30", memory = "예락이가 엄청 귀여워한 요구르트샤베트 ㅋㅋㅋ"),
+        ImageData(R.drawable.pic20, person = "박상우", date = "2023-06-30", memory = "상우 약간 담임미 있게 나옴"),
+        ImageData(R.drawable.pic21, person = "", date = "", memory = ""),
+        ImageData(R.drawable.pic22, person = "박윤서", date = "2023-07-01", memory = "매운거 잘 못 먹는 윤서 ㅎㅎ"),
+        ImageData(R.drawable.pic23, person = "주서현", date = "2023-07-01", memory = "서현이가 초콜렛을 나눔해줬다.. 천사 \uD83D\uDC9D"),
+        ImageData(R.drawable.pic24, person = "신진영", date = "2023-07-02", memory = "건강식 최고 진영이가 엄청 마음에 들어했다 헤헤"),
+        ImageData(R.drawable.pic25, person = "", date = "", memory = ""),
+        ImageData(R.drawable.pic26, person = "박영민", date = "2023-07-03", memory = "케이크는 우유랑 먹어야 한다며 우유 사온 영민이 센스 미침"),
+        ImageData(R.drawable.pic27, person = "윤우성", date = "2023-07-03", memory = "망고시루 진짜 맛있다.. 또 먹고싶은 맛")
     )
 
     // 이미지 선택 결과를 처리하기 위한 ActivityResultLauncher 등록

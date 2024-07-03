@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/nanumbarunpen"
             android:hint="추억을 만든 날짜를 입력해주세요
-            (ex. 2024-07-02)" />
+               (ex. 2024-07-02)" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
