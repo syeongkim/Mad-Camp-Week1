@@ -165,7 +165,6 @@ class NotificationsFragment : Fragment() {
         }
 
         binding.button2.setOnClickListener {
-            textView2.text = editMessage.text
             val intent = Intent(Intent.ACTION_SENDTO).apply {
                 data = Uri.parse("smsto:$phoneNumber")
                 putExtra("sms_body", textView2.text.toString()) // 메시지 내용
