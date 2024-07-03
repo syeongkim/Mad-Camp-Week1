@@ -122,6 +122,13 @@
 
 
 📞 **Contact**
+[연락처 확인하기 및 정렬](https://prod-files-secure.s3.us-west-2.amazonaws.com/f6cb388f-3934-47d6-9928-26d2e10eb0fc/cb99fecc-98b7-4261-a6cc-2b503d9e6743/%ED%83%AD1.mp4)
+
+연락처 확인하기 및 정렬
+
+[연락처 추가 및 삭제](https://prod-files-secure.s3.us-west-2.amazonaws.com/f6cb388f-3934-47d6-9928-26d2e10eb0fc/1ef34c03-fffb-40c6-a92e-1dfa1329e80d/%ED%83%AD1(1).mp4)
+
+연락처 추가 및 삭제
 
 
 📸 **Memory**
