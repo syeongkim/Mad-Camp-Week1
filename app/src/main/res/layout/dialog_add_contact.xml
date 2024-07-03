@@ -20,4 +20,12 @@
         android:fontFamily="@font/nanumbarunpen"
         android:hint="전화번호(ex. 010-1234-5678)"
         android:inputType="phone" />
+
+    <EditText
+        android:id="@+id/birthdayEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nanumbarunpen"
+        android:hint="생일(ex. 2003.02.28)"
+        android:inputType="date" />
 </LinearLayout>

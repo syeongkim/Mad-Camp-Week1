@@ -80,6 +80,7 @@ class HomeFragment : Fragment() {
         val dialogLayout = inflater.inflate(R.layout.dialog_add_contact, null)
         val nameEditText = dialogLayout.findViewById<EditText>(R.id.nameEditText)
         val phoneEditText = dialogLayout.findViewById<EditText>(R.id.phoneEditText)
+        val birthdayEditText = dialogLayout.findViewById<EditText>(R.id.birthdayEditText) // 생일 입력 필드 추가
 
         with(builder) {
             setTitle("연락처 추가")
@@ -87,10 +88,11 @@ class HomeFragment : Fragment() {
             setPositiveButton("추가") { _, _ ->
                 val name = nameEditText.text.toString()
                 val phone = phoneEditText.text.toString()
+                val birthday = birthdayEditText.text.toString() // 생일 값 읽기
                 val currentDate = getCurrentDate()
 
                 if (name.isNotEmpty() && phone.isNotEmpty()) {
-                    val newContact = Contact(name, phone, currentDate, currentDate, null, null)
+                    val newContact = Contact(name, phone, currentDate, currentDate, null, birthday)
                     addContact(newContact)
                 }
             }
