@@ -4,7 +4,7 @@
 연락 리마인드 앱 **자니..?** 로 소중한 인연을 관리하세요! ✉️
 
 ### Outline
-[![logo.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/f6cb388f-3934-47d6-9928-26d2e10eb0fc/a8a7729f-3511-408b-bf6e-09cd1b1adb53/logo.png)](https://private-user-images.githubusercontent.com/107764281/345361782-d45d5314-48d6-426d-b29f-9ac44190713c.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MjAwMDQ5OTUsIm5iZiI6MTcyMDAwNDY5NSwicGF0aCI6Ii8xMDc3NjQyODEvMzQ1MzYxNzgyLWQ0NWQ1MzE0LTQ4ZDYtNDI2ZC1iMjlmLTlhYzQ0MTkwNzEzYy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNzAzJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDcwM1QxMTA0NTVaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1iMDJjNTYwMzIzZTI2MjBkMWQwY2IzOWI4YzYzODAyOWY0YmY1YmFjNWExMDJjZTVjMzgxYWFkNDJhZjVhMTY1JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.OKdcLzA4GyUz5sfekWiuzG5Bp4drNVnkDj5hkB1iJ9I)
+https://github.com/syeongkim/Mad-Camp-Week1/blob/main/app/src/main/res/drawable/logo.png?raw=true
 
 **자니..?**는 소중한 인연들을 잃지 않도록 주기적으로 **연락을 리마인드** 해주는 앱입니다.
 
