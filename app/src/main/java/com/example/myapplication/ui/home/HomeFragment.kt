@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -41,7 +43,8 @@ class HomeFragment : Fragment() {
             saveContactsToSharedPreferences(contacts)
         }
 
-        contactsAdapter = ContactsAdapter(contacts) { updatedContacts ->
+        // contactsAdapter 초기화 시 클릭 이벤트 핸들러 추가
+        contactsAdapter = ContactsAdapter(contacts, ::onContactClicked) { updatedContacts ->
             saveContactsToSharedPreferences(updatedContacts)
         }
         binding.contactsLayout.layoutManager = LinearLayoutManager(requireContext())
@@ -51,7 +54,7 @@ class HomeFragment : Fragment() {
             contactsAdapter.sortByLastContactedDate()
         }
 
-        binding.sortButton.setOnClickListener{
+        binding.sortButton.setOnClickListener {
             contactsAdapter.sortByName()
         }
 
@@ -96,6 +99,91 @@ class HomeFragment : Fragment() {
         }
     }
 
+    // 연락처 수정 다이얼로그를 표시하는 함수
+    private fun showEditContactDialog(contact: Contact) {
+        val builder = AlertDialog.Builder(requireContext())
+        val inflater = layoutInflater
+        val dialogLayout = inflater.inflate(R.layout.dialog_edit_contact, null)
+
+        // 연락처 정보를 입력 필드에 설정하고 초기에는 비활성화 상태로 설정
+        val nameEditText = dialogLayout.findViewById<EditText>(R.id.nameEditText).apply {
+            setText(contact.name)
+            isEnabled = false
+        }
+        val phoneEditText = dialogLayout.findViewById<EditText>(R.id.phoneEditText).apply {
+            setText(contact.phoneNumber)
+            isEnabled = false
+        }
+        val birthdayEditText = dialogLayout.findViewById<EditText>(R.id.birthdayEditText).apply {
+            setText(contact.birthday ?: "")
+            isEnabled = false
+        }
+        val firstMetDateEditText = dialogLayout.findViewById<EditText>(R.id.firstMetDateEditText).apply {
+            setText(contact.savedDate)
+            isEnabled = false
+        }
+        val lastContactedDateEditText = dialogLayout.findViewById<EditText>(R.id.lastContactedDateEditText).apply {
+            setText(contact.lastContactedDate)
+            isEnabled = false
+        }
+        val saveButton = dialogLayout.findViewById<Button>(R.id.saveButton).apply {
+            visibility = View.GONE
+        }
+        val editButton = dialogLayout.findViewById<Button>(R.id.editButton)
+
+        builder.setTitle("편지지기")
+        builder.setView(dialogLayout)
+
+        val dialog = builder.create()
+        dialog.show()
+
+        // 수정 버튼 클릭 시 처리
+        editButton.setOnClickListener {
+            // 입력 필드를 활성화
+            nameEditText.isEnabled = true
+            phoneEditText.isEnabled = true
+            birthdayEditText.isEnabled = true
+            firstMetDateEditText.isEnabled = true
+            lastContactedDateEditText.isEnabled = true
+
+            // 저장 버튼을 표시
+            saveButton.visibility = View.VISIBLE
+        }
+
+        saveButton.setOnClickListener {
+            // 수정된 데이터를 저장
+            val name = nameEditText.text.toString()
+            val phone = phoneEditText.text.toString()
+            val birthday = birthdayEditText.text.toString()
+            val firstMetDate = firstMetDateEditText.text.toString()
+            val lastContactedDate = lastContactedDateEditText.text.toString()
+
+            if (name.isNotEmpty() && phone.isNotEmpty()) {
+                val updatedContact = contact.copy(
+                    name = name,
+                    phoneNumber = phone,
+                    birthday = birthday,
+                    savedDate = firstMetDate,
+                    lastContactedDate = lastContactedDate
+                )
+
+                // 변경 사항을 SharedPreferences에 저장
+                val updatedContacts = contactsAdapter.getContacts().map {
+                    if (it.name == contact.name && it.phoneNumber == contact.phoneNumber) updatedContact else it
+                }
+                saveContactsToSharedPreferences(updatedContacts)
+                contactsAdapter.updateContacts(updatedContacts)
+            }
+
+            // 다이얼로그를 닫음
+            dialog.dismiss()
+        }
+
+        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener {
+            dialog.dismiss()
+        }
+    }
+
     private fun getCurrentDate(): String {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         return dateFormat.format(Date())
@@ -106,6 +194,20 @@ class HomeFragment : Fragment() {
         updatedContacts.add(contact)
         contactsAdapter.updateContacts(updatedContacts)
         saveContactsToSharedPreferences(updatedContacts)
+    }
+
+    // 연락처 정보를 업데이트하는 함수
+    private fun updateContact(contact: Contact) {
+        val updatedContacts = contactsAdapter.getContacts().map {
+            if (it.name == contact.name && it.phoneNumber == contact.phoneNumber) contact else it
+        }
+        contactsAdapter.updateContacts(updatedContacts)
+        saveContactsToSharedPreferences(updatedContacts)
+    }
+
+    // 연락처 클릭 시 호출되는 함수, 수정 다이얼로그를 표시
+    private fun onContactClicked(contact: Contact) {
+        showEditContactDialog(contact)
     }
 
     override fun onDestroyView() {
@@ -140,9 +242,3 @@ class HomeFragment : Fragment() {
         }
     }
 }
-
-
-
-
-
-

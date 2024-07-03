@@ -174,6 +174,7 @@ class DashboardFragment : Fragment() {
                 val dateEditText: EditText = dialogView.findViewById(R.id.dateEditText)
                 val memoryEditText: EditText = dialogView.findViewById(R.id.memoryEditText)
                 val saveButton: Button = dialogView.findViewById(R.id.saveButton)
+                val editButton: Button = dialogView.findViewById(R.id.editButton) // 수정 버튼 추가
 
                 if (imageData.imageResId != null) {
                     ivPic.setImageResource(imageData.imageResId)
@@ -193,6 +194,28 @@ class DashboardFragment : Fragment() {
                     memoryEditText.isEnabled = false
                     saveButton.visibility = View.GONE
 
+                    // 수정 버튼 클릭 시 입력 필드를 활성화하고 저장 버튼을 표시
+                    editButton.setOnClickListener {
+                        personEditText.isEnabled = true
+                        dateEditText.isEnabled = true
+                        memoryEditText.isEnabled = true
+                        saveButton.visibility = View.VISIBLE
+                    }
+
+                    saveButton.setOnClickListener {
+                        // 수정된 데이터를 저장
+                        imageData.person = personEditText.text.toString()
+                        imageData.date = dateEditText.text.toString()
+                        imageData.memory = memoryEditText.text.toString()
+
+                        // 변경 사항을 SharedPreferences에 저장
+                        saveImageDataList()
+                        gridAdapter.notifyDataSetChanged()
+
+                        // 다이얼로그를 닫음
+                        dlg.create().dismiss()
+                    }
+
                     dlg.setNegativeButton("닫기", null)
                 } else {
                     // 입력된 데이터가 없는 경우
@@ -204,6 +227,7 @@ class DashboardFragment : Fragment() {
 
                         // 변경 사항을 SharedPreferences에 저장
                         saveImageDataList()
+                        gridAdapter.notifyDataSetChanged()
 
                         // 다이얼로그를 닫음
                         dlg.create().dismiss()
@@ -237,13 +261,3 @@ class DashboardFragment : Fragment() {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
