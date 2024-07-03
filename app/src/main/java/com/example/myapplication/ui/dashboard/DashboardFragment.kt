@@ -14,6 +14,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.GridView
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
@@ -176,6 +177,12 @@ class DashboardFragment : Fragment() {
                 val memoryEditText: EditText = dialogView.findViewById(R.id.memoryEditText)
                 val saveButton: Button = dialogView.findViewById(R.id.saveButton)
                 val editButton: Button = dialogView.findViewById(R.id.editButton) // 수정 버튼 추가
+                val text1: TextView = dialogView.findViewById(R.id.text1)
+                val text2: TextView = dialogView.findViewById(R.id.text2)
+                val text3: TextView = dialogView.findViewById(R.id.text3)
+                text1.visibility = View.GONE
+                text2.visibility = View.GONE
+                text3.visibility = View.GONE
 
                 saveButton.text = "닫기"
 
@@ -186,7 +193,7 @@ class DashboardFragment : Fragment() {
                 }
 
                 // 입력된 데이터가 있는 경우
-                if (imageData.person != null && imageData.date != null && imageData.memory != null && imageData.person != "" && imageData.date != "" && imageData.memory != "") {
+                if ((imageData.person != null && imageData.person != "") || (imageData.date != null && imageData.date != "") || (imageData.memory != null  && imageData.memory != "")) {
                     personEditText.setText(imageData.person)
                     personEditText.setTextColor(Color.parseColor("#000000"))
                     dateEditText.setText(imageData.date)
@@ -194,10 +201,21 @@ class DashboardFragment : Fragment() {
                     memoryEditText.setText(imageData.memory)
                     memoryEditText.setTextColor(Color.parseColor("#000000"))
 
-                    // 입력 필드를 비활성화하고 저장 버튼을 숨김
-                    personEditText.isEnabled = false
-                    dateEditText.isEnabled = false
-                    memoryEditText.isEnabled = false
+                    if ((imageData.person != null && imageData.person != "")) {
+                        text1.visibility = View.VISIBLE
+                        personEditText.isEnabled = false
+                    }
+
+                    if ((imageData.date != null && imageData.date != "")) {
+                        text2.visibility = View.VISIBLE
+                        dateEditText.isEnabled = false
+                    }
+
+                    if ((imageData.memory != null  && imageData.memory != "")) {
+                        text3.visibility = View.VISIBLE
+                        memoryEditText.isEnabled = false
+                    }
+
 
                     // 수정 버튼 클릭 시 입력 필드를 활성화하고 저장 버튼을 표시
                     editButton.setOnClickListener {
@@ -217,7 +235,7 @@ class DashboardFragment : Fragment() {
                 } else {
                     // 입력된 데이터가 없는 경우
                     editButton.text = "저장"
-                    saveButton.setOnClickListener {
+                    editButton.setOnClickListener {
                         // 입력된 데이터를 저장
                         imageData.person = personEditText.text.toString()
                         imageData.date = dateEditText.text.toString()
