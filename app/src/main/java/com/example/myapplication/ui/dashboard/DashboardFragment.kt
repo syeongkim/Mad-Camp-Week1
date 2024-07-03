@@ -2,6 +2,7 @@ package com.example.myapplication.ui.dashboard
 
 import android.content.Context
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +14,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.GridView
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
@@ -166,7 +168,7 @@ class DashboardFragment : Fragment() {
             // 클릭 리스너: 입력된 데이터가 있는 경우와 없는 경우를 구분
             imageView.setOnClickListener {
                 val dialogView = View.inflate(context, R.layout.dialog, null)
-                val dlg = AlertDialog.Builder(context)
+                val dlg = AlertDialog.Builder(context).create()
 
                 // 다이얼로그의 뷰 요소들 참조
                 val ivPic: ImageView = dialogView.findViewById(R.id.ivPic)
@@ -175,6 +177,14 @@ class DashboardFragment : Fragment() {
                 val memoryEditText: EditText = dialogView.findViewById(R.id.memoryEditText)
                 val saveButton: Button = dialogView.findViewById(R.id.saveButton)
                 val editButton: Button = dialogView.findViewById(R.id.editButton) // 수정 버튼 추가
+                val text1: TextView = dialogView.findViewById(R.id.text1)
+                val text2: TextView = dialogView.findViewById(R.id.text2)
+                val text3: TextView = dialogView.findViewById(R.id.text3)
+                text1.visibility = View.GONE
+                text2.visibility = View.GONE
+                text3.visibility = View.GONE
+
+                saveButton.text = "닫기"
 
                 if (imageData.imageResId != null) {
                     ivPic.setImageResource(imageData.imageResId)
@@ -183,43 +193,49 @@ class DashboardFragment : Fragment() {
                 }
 
                 // 입력된 데이터가 있는 경우
-                if (imageData.person != null && imageData.date != null && imageData.memory != null) {
+                if ((imageData.person != null && imageData.person != "") || (imageData.date != null && imageData.date != "") || (imageData.memory != null  && imageData.memory != "")) {
                     personEditText.setText(imageData.person)
+                    personEditText.setTextColor(Color.parseColor("#000000"))
                     dateEditText.setText(imageData.date)
+                    dateEditText.setTextColor(Color.parseColor("#000000"))
                     memoryEditText.setText(imageData.memory)
+                    memoryEditText.setTextColor(Color.parseColor("#000000"))
 
-                    // 입력 필드를 비활성화하고 저장 버튼을 숨김
-                    personEditText.isEnabled = false
-                    dateEditText.isEnabled = false
-                    memoryEditText.isEnabled = false
-                    saveButton.visibility = View.GONE
+                    if ((imageData.person != null && imageData.person != "")) {
+                        text1.visibility = View.VISIBLE
+                        personEditText.isEnabled = false
+                    }
+
+                    if ((imageData.date != null && imageData.date != "")) {
+                        text2.visibility = View.VISIBLE
+                        dateEditText.isEnabled = false
+                    }
+
+                    if ((imageData.memory != null  && imageData.memory != "")) {
+                        text3.visibility = View.VISIBLE
+                        memoryEditText.isEnabled = false
+                    }
+
 
                     // 수정 버튼 클릭 시 입력 필드를 활성화하고 저장 버튼을 표시
                     editButton.setOnClickListener {
                         personEditText.isEnabled = true
+                        personEditText.setTextColor(Color.parseColor("#808080"))
                         dateEditText.isEnabled = true
+                        dateEditText.setTextColor(Color.parseColor("#808080"))
                         memoryEditText.isEnabled = true
+                        memoryEditText.setTextColor(Color.parseColor("#808080"))
+                        saveButton.text = "저장"
                         saveButton.visibility = View.VISIBLE
+                        editButton.visibility = View.GONE
                     }
 
-                    saveButton.setOnClickListener {
-                        // 수정된 데이터를 저장
-                        imageData.person = personEditText.text.toString()
-                        imageData.date = dateEditText.text.toString()
-                        imageData.memory = memoryEditText.text.toString()
 
-                        // 변경 사항을 SharedPreferences에 저장
-                        saveImageDataList()
-                        gridAdapter.notifyDataSetChanged()
-
-                        // 다이얼로그를 닫음
-                        dlg.create().dismiss()
-                    }
-
-                    dlg.setNegativeButton("닫기", null)
+                    //dlg.setNegativeButton("닫기", null)
                 } else {
                     // 입력된 데이터가 없는 경우
-                    saveButton.setOnClickListener {
+                    editButton.text = "저장"
+                    editButton.setOnClickListener {
                         // 입력된 데이터를 저장
                         imageData.person = personEditText.text.toString()
                         imageData.date = dateEditText.text.toString()
@@ -230,14 +246,27 @@ class DashboardFragment : Fragment() {
                         gridAdapter.notifyDataSetChanged()
 
                         // 다이얼로그를 닫음
-                        dlg.create().dismiss()
+                        dlg.dismiss()
                     }
 
-                    dlg.setNegativeButton("닫기", null)
+                    //dlg.setNegativeButton("닫기", null)
                 }
 
                 dlg.setView(dialogView)
                 dlg.show()
+                saveButton.setOnClickListener {
+                    // 수정된 데이터를 저장
+                    imageData.person = personEditText.text.toString()
+                    imageData.date = dateEditText.text.toString()
+                    imageData.memory = memoryEditText.text.toString()
+
+                    // 변경 사항을 SharedPreferences에 저장
+                    saveImageDataList()
+                    gridAdapter.notifyDataSetChanged()
+
+                    // 다이얼로그를 닫음
+                    dlg.dismiss()
+                }
             }
 
             // 롱 클릭 리스너: 이미지 삭제

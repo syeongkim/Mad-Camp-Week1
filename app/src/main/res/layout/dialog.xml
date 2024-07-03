@@ -2,7 +2,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:layout_width="match_parent"
@@ -11,38 +11,80 @@
         android:id="@+id/ivPic"
         android:contentDescription="@string/todo" />
 
-    <EditText
-        android:id="@+id/personEditText"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/nanumbarunpen"
-        android:hint="추억을 함께한 사람을 입력해주세요" />
-
-    <EditText
-        android:id="@+id/dateEditText"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="추억을 함께한 사람:" />
+        <EditText
+            android:id="@+id/personEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nanumbarunpen"
+            android:hint="추억을 함께한 사람을 입력해주세요" />
+    </LinearLayout>
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/nanumbarunpen"
-        android:hint="추억을 만든 날짜를 입력해주세요 (ex. 2024-07-02)" />
-
-    <EditText
-        android:id="@+id/memoryEditText"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="추억을 만든 날짜:" />
+        <EditText
+            android:id="@+id/dateEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nanumbarunpen"
+            android:hint="추억을 만든 날짜를 입력해주세요 (ex. 2024-07-02)" />
+    </LinearLayout>
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/nanumbarunpen"
-        android:hint="추억에 대해 기억할 수 있게 한 마디 적어주세요" />
-
-    <Button
-        android:id="@+id/saveButton"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/text3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="추억 한마디:" />
+        <EditText
+            android:id="@+id/memoryEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nanumbarunpen"
+            android:hint="추억에 대해 기억할 수 있게 한 마디 적어주세요" />
+    </LinearLayout>
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/nanumbarunpen"
-        android:text="저장" />
+        android:orientation="horizontal"
+        android:gravity="center">
 
-    <Button
-        android:id="@+id/editButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/nanumbarunpen"
-        android:text="수정" />
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/nanumbarunpen"
+            android:text="저장" />
+
+        <Button
+            android:id="@+id/editButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/nanumbarunpen"
+            android:text="수정" />
+    </LinearLayout>
+
 </LinearLayout>
