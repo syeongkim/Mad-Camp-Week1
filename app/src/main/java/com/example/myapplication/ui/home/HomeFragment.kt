@@ -133,9 +133,8 @@ class HomeFragment : Fragment() {
             setTextColor(Color.parseColor("#000000"))
             isEnabled = false
         }
-        val saveButton = dialogLayout.findViewById<Button>(R.id.saveButton).apply {
-            visibility = View.GONE
-        }
+        val saveButton = dialogLayout.findViewById<Button>(R.id.saveButton)
+        saveButton.text = "닫기"
         val editButton = dialogLayout.findViewById<Button>(R.id.editButton)
 
         builder.setTitle("편지지기")
@@ -159,6 +158,7 @@ class HomeFragment : Fragment() {
             lastContactedDateEditText.setTextColor(Color.parseColor("#808080"))
 
             // 저장 버튼을 표시
+            saveButton.text = "저장"
             saveButton.visibility = View.VISIBLE
             editButton.visibility = View.GONE
         }

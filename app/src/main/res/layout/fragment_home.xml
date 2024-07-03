@@ -104,7 +104,7 @@
             android:layout_height="match_parent"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:paddingBottom="10dp"
+            android:paddingBottom="50dp"
             tools:layout_editor_absoluteX="4dp"
             tools:layout_editor_absoluteY="79dp" />
 

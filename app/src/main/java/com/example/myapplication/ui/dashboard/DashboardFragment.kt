@@ -46,7 +46,13 @@ class DashboardFragment : Fragment() {
         ImageData(R.drawable.pic5, person = "윤우성", date = "2023-07-05", memory = "환상적인 경험"),
         ImageData(R.drawable.pic6, person = "안세혁", date = "2023-07-06", memory = "소중한 추억"),
         ImageData(R.drawable.pic7, person = "안규찬", date = "2023-07-07", memory = "즐거운 기억"),
-        ImageData(R.drawable.pic8), ImageData(R.drawable.pic9), ImageData(R.drawable.pic10)
+        ImageData(R.drawable.pic8), ImageData(R.drawable.pic9), ImageData(R.drawable.pic10),
+        ImageData(R.drawable.pic11), ImageData(R.drawable.pic12), ImageData(R.drawable.pic13),
+        ImageData(R.drawable.pic14), ImageData(R.drawable.pic15), ImageData(R.drawable.pic16),
+        ImageData(R.drawable.pic17), ImageData(R.drawable.pic18), ImageData(R.drawable.pic19),
+        ImageData(R.drawable.pic20), ImageData(R.drawable.pic21), ImageData(R.drawable.pic22),
+        ImageData(R.drawable.pic23), ImageData(R.drawable.pic24), ImageData(R.drawable.pic25),
+        ImageData(R.drawable.pic26), ImageData(R.drawable.pic27)
     )
 
     // 이미지 선택 결과를 처리하기 위한 ActivityResultLauncher 등록
@@ -109,6 +115,7 @@ class DashboardFragment : Fragment() {
     }
 
     private fun loadImageDataList() {
+        saveImageDataList()
         val sharedPreferences = requireContext().getSharedPreferences("image_data", Context.MODE_PRIVATE)
         val jsonString = sharedPreferences.getString("imageDataList", null)
 
@@ -145,9 +152,9 @@ class DashboardFragment : Fragment() {
 
         override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
             val imageView: ImageView = convertView as? ImageView ?: ImageView(context).apply {
-                layoutParams = ViewGroup.LayoutParams(200, 300)
+                layoutParams = ViewGroup.LayoutParams(325, 325)
                 scaleType = ImageView.ScaleType.FIT_CENTER
-                setPadding(5, 5, 5, 5)
+                setPadding(2, 2, 2, 2)
             }
 
             val imageData = dataList[position]
