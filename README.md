@@ -8,3 +8,16 @@
 **자니..?**는 소중한 인연들을 잃지 않도록 주기적으로 연락을 리마인드 해주는 앱입니다.
 
 소중한 인연의 연락처 관리, 소중한 인연과의 추억 관리, 소중한 인연과의 연락 관리를 할 수 있는 3개의 탭으로 구성되어 있습니다.
+
+
+## Team
+- [김서영](https://github.com/syeongkim) 
+- [박영민](https://github.com/YoungMin0B)
+
+
+## Tech Stack
+** Front-end **: Kotlin
+** IDE **: Android Studio
+
+
+## About
