@@ -2,7 +2,8 @@ package com.example.myapplication.ui.notifications
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -30,7 +31,6 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.util.Random
-
 
 class NotificationsFragment : Fragment() {
 
@@ -66,19 +66,15 @@ class NotificationsFragment : Fragment() {
         val memoryPic: ImageView = binding.memoryPic
         val textDate: TextView = binding.textDate
         val datePicker: DatePicker = binding.datePicker
-        //datePicker.visibility = View.GONE
         val button1: Button = binding.button1
         val button2: Button = binding.button2
         val randomButton: Button = binding.randomButton
         val editMessage: TextView = binding.editMessage
 
-
-
         val today = LocalDate.now()
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
         var formattedDate = today.format(formatter).toString()
         textDate.text = "오늘은 $formattedDate 입니다!"
-
 
         val dashboardFragment = DashboardFragment()
         val imageDataList = dashboardFragment.imageDataList
@@ -128,6 +124,35 @@ class NotificationsFragment : Fragment() {
             hasRandom = true
         }
 
+        memoryPic.setOnClickListener {
+            val dialogView = View.inflate(context, R.layout.dialog, null)
+            val dlg = context?.let { it1 -> AlertDialog.Builder(it1) }
+
+            // 다이얼로그의 뷰 요소들 참조
+            val ivPic: ImageView = dialogView.findViewById(R.id.ivPic)
+            val personEditText: EditText = dialogView.findViewById(R.id.personEditText)
+            val dateEditText: EditText = dialogView.findViewById(R.id.dateEditText)
+            val memoryEditText: EditText = dialogView.findViewById(R.id.memoryEditText)
+            val saveButton: Button = dialogView.findViewById(R.id.saveButton)
+
+            ivPic.setImageResource(imageResource)
+
+            // 입력된 데이터가 있는 경우
+            personEditText.setText(person)
+            dateEditText.setText(memoryDate)
+            memoryEditText.setText(memoryComment)
+
+            // 입력 필드를 비활성화하고 저장 버튼을 숨김
+            personEditText.isEnabled = false
+            dateEditText.isEnabled = false
+            memoryEditText.isEnabled = false
+            saveButton.visibility = View.GONE
+
+            dlg?.setNegativeButton("닫기", null)
+            dlg?.setView(dialogView)
+            dlg?.show()
+        }
+
         textView2.setOnClickListener {
             editMessage.visibility = View.VISIBLE
             textView2.visibility = View.GONE
@@ -137,7 +162,7 @@ class NotificationsFragment : Fragment() {
             imm.showSoftInput(editMessage, InputMethodManager.SHOW_IMPLICIT)
         }
 
-        editMessage.setOnFocusChangeListener {_, hasFocus ->
+        editMessage.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
                 textView2.text = editMessage.text
                 textView2.visibility = View.VISIBLE
@@ -176,7 +201,7 @@ class NotificationsFragment : Fragment() {
         return root
     }
 
-
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun checkMatchingMemory(
         imageDataList: List<ImageData>,
         formattedDate: String,
@@ -213,42 +238,8 @@ class NotificationsFragment : Fragment() {
                 textView1.text = "${pastYearNum}년 전 오늘 생성된 추억이 있어요.\n${person}님께 지금 바로 연락해보세요!"
                 textView2.text = messageContent
                 imageResource = matchingMemoryData.imageResId!!
-                memoryPic.setImageResource(imageResource)
-            }
-            memoryPic.setOnClickListener {
-                val dialogView = View.inflate(context, R.layout.dialog, null)
-                val dlg = context?.let { it1 -> AlertDialog.Builder(it1).create() }
-
-                // 다이얼로그의 뷰 요소들 참조
-                val ivPic: ImageView = dialogView.findViewById(R.id.ivPic)
-                val personEditText: EditText = dialogView.findViewById(R.id.personEditText)
-                val dateEditText: EditText = dialogView.findViewById(R.id.dateEditText)
-                val memoryEditText: EditText = dialogView.findViewById(R.id.memoryEditText)
-                val saveButton: Button = dialogView.findViewById(R.id.saveButton)
-                val editButton: Button = dialogView.findViewById(R.id.editButton)
-
-                ivPic.setImageResource(imageResource)
-
-                // 입력된 데이터가 있는 경우
-                personEditText.setText(person)
-                personEditText.setTextColor(Color.parseColor("#000000"))
-                dateEditText.setText(memoryDate)
-                dateEditText.setTextColor(Color.parseColor("#000000"))
-                memoryEditText.setText(memoryComment)
-                memoryEditText.setTextColor(Color.parseColor("#000000"))
-
-                // 입력 필드를 비활성화하고 저장 버튼을 숨김
-                personEditText.isEnabled = false
-                dateEditText.isEnabled = false
-                memoryEditText.isEnabled = false
-                saveButton.text = "닫기"
-                editButton.visibility = View.GONE
-
-                saveButton.setOnClickListener {
-                    dlg?.dismiss()
-                }
-                dlg?.setView(dialogView)
-                dlg?.show()
+                val resizedBitmap = resizeBitmap(imageResource, 500, 500)
+                memoryPic.setImageBitmap(resizedBitmap)
             }
             val contacts = loadContactsFromJson()
             phoneNumber = contacts.find { it.name == person }?.phoneNumber.toString()
@@ -292,48 +283,8 @@ class NotificationsFragment : Fragment() {
                     textView2.text = messageContents.random()
                 }
                 val imageResource = context?.resources?.getIdentifier(matchingBirthday.picture, "drawable", context?.packageName) ?: R.drawable.logo
-                memoryPic.setImageResource(imageResource)
-                memoryPic.setOnClickListener {
-                    val dialogView = View.inflate(context, R.layout.dialog, null)
-                    val dlg = context?.let { it1 -> AlertDialog.Builder(it1).create() }
-
-                    // 다이얼로그의 뷰 요소들 참조
-                    val ivPic: ImageView = dialogView.findViewById(R.id.ivPic)
-                    val personEditText: EditText = dialogView.findViewById(R.id.personEditText)
-                    val dateEditText: EditText = dialogView.findViewById(R.id.dateEditText)
-                    val memoryEditText: EditText = dialogView.findViewById(R.id.memoryEditText)
-                    val saveButton: Button = dialogView.findViewById(R.id.saveButton)
-                    val editButton: Button = dialogView.findViewById(R.id.editButton)
-                    val text1: TextView = dialogView.findViewById(R.id.text1)
-                    val text2: TextView = dialogView.findViewById(R.id.text2)
-                    val text3: TextView = dialogView.findViewById(R.id.text3)
-
-                    ivPic.setImageResource(imageResource)
-
-                    // 입력된 데이터가 있는 경우
-                    text1.text = "생일인 사람:"
-                    personEditText.setText(matchingBirthday.name)
-                    personEditText.setTextColor(Color.parseColor("#000000"))
-                    text2.text = "첫 인사 기록:"
-                    dateEditText.setText(matchingBirthday.savedDate)
-                    dateEditText.setTextColor(Color.parseColor("#000000"))
-                    text3.text = "마지막 인사 기록"
-                    memoryEditText.setText(matchingBirthday.lastContactedDate)
-                    memoryEditText.setTextColor(Color.parseColor("#000000"))
-
-                    // 입력 필드를 비활성화하고 저장 버튼을 숨김
-                    personEditText.isEnabled = false
-                    dateEditText.isEnabled = false
-                    memoryEditText.isEnabled = false
-                    saveButton.text = "닫기"
-                    editButton.visibility = View.GONE
-
-                    saveButton.setOnClickListener {
-                        dlg?.dismiss()
-                    }
-                    dlg?.setView(dialogView)
-                    dlg?.show()
-                }
+                val resizedBitmap = resizeBitmap(imageResource, 500, 500)
+                memoryPic.setImageBitmap(resizedBitmap)
                 hasMatchingBirthday = true
             }
         }
@@ -370,49 +321,9 @@ class NotificationsFragment : Fragment() {
                     val daysSinceLastContact = ChronoUnit.DAYS.between(LocalDate.parse(oldestContact.lastContactedDate), LocalDate.parse(formattedDate))
                     textView1.text = "${person}님과 연락한 지 벌써 ${daysSinceLastContact}일이 지났어요.\n ${person} 님께 지금 바로 연락해보세요!"
                     textView2.text = messageContent
-                    imageResource = context?.resources?.getIdentifier(oldestContact.picture, "drawable", context?.packageName) ?: R.drawable.logo
-                    memoryPic.setImageResource(imageResource)
-                }
-                memoryPic.setOnClickListener {
-                    val dialogView = View.inflate(context, R.layout.dialog, null)
-                    val dlg = context?.let { it1 -> AlertDialog.Builder(it1).create() }
-
-                    // 다이얼로그의 뷰 요소들 참조
-                    val ivPic: ImageView = dialogView.findViewById(R.id.ivPic)
-                    val personEditText: EditText = dialogView.findViewById(R.id.personEditText)
-                    val dateEditText: EditText = dialogView.findViewById(R.id.dateEditText)
-                    val memoryEditText: EditText = dialogView.findViewById(R.id.memoryEditText)
-                    val saveButton: Button = dialogView.findViewById(R.id.saveButton)
-                    val editButton: Button = dialogView.findViewById(R.id.editButton)
-                    val text1: TextView = dialogView.findViewById(R.id.text1)
-                    val text2: TextView = dialogView.findViewById(R.id.text2)
-                    val text3: TextView = dialogView.findViewById(R.id.text3)
-
-                    ivPic.setImageResource(imageResource)
-
-                    // 입력된 데이터가 있는 경우
-                    text1.text = "이름:"
-                    personEditText.setText(oldestContact.name)
-                    personEditText.setTextColor(Color.parseColor("#000000"))
-                    text2.text = "첫 인사 기록:"
-                    dateEditText.setText(oldestContact.savedDate)
-                    dateEditText.setTextColor(Color.parseColor("#000000"))
-                    text3.text = "마지막 인사 기록"
-                    memoryEditText.setText(oldestContact.lastContactedDate)
-                    memoryEditText.setTextColor(Color.parseColor("#000000"))
-
-                    // 입력 필드를 비활성화하고 저장 버튼을 숨김
-                    personEditText.isEnabled = false
-                    dateEditText.isEnabled = false
-                    memoryEditText.isEnabled = false
-                    saveButton.text = "닫기"
-                    editButton.visibility = View.GONE
-
-                    saveButton.setOnClickListener {
-                        dlg?.dismiss()
-                    }
-                    dlg?.setView(dialogView)
-                    dlg?.show()
+                    val imageResource = context?.resources?.getIdentifier(oldestContact.picture, "drawable", context?.packageName) ?: R.drawable.logo
+                    val resizedBitmap = resizeBitmap(imageResource, 500, 500)
+                    memoryPic.setImageBitmap(resizedBitmap)
                 }
                 phoneNumber = oldestContact.phoneNumber
                 hasOldestContact = true
@@ -448,59 +359,35 @@ class NotificationsFragment : Fragment() {
             notificationsViewModel.text.observe(viewLifecycleOwner) {
                 textView1.text = "${person}님과 연락한 지 벌써 ${daysSinceLastContact}일이 지났어요.\n ${person} 님께 지금 바로 연락해보세요!"
                 textView2.text = messageContent
-                imageResource = context?.resources?.getIdentifier(randomContact.picture, "drawable", context?.packageName) ?: R.drawable.logo
-                memoryPic.setImageResource(imageResource)
-            }
-            memoryPic.setOnClickListener {
-                val dialogView = View.inflate(context, R.layout.dialog, null)
-                val dlg = context?.let { it1 -> AlertDialog.Builder(it1).create() }
-
-                // 다이얼로그의 뷰 요소들 참조
-                val ivPic: ImageView = dialogView.findViewById(R.id.ivPic)
-                val personEditText: EditText = dialogView.findViewById(R.id.personEditText)
-                val dateEditText: EditText = dialogView.findViewById(R.id.dateEditText)
-                val memoryEditText: EditText = dialogView.findViewById(R.id.memoryEditText)
-                val saveButton: Button = dialogView.findViewById(R.id.saveButton)
-                val editButton: Button = dialogView.findViewById(R.id.editButton)
-                val text1: TextView = dialogView.findViewById(R.id.text1)
-                val text2: TextView = dialogView.findViewById(R.id.text2)
-                val text3: TextView = dialogView.findViewById(R.id.text3)
-
-                ivPic.setImageResource(imageResource)
-
-                // 입력된 데이터가 있는 경우
-                text1.text = "이름:"
-                personEditText.setText(randomContact.name)
-                personEditText.setTextColor(Color.parseColor("#000000"))
-                text2.text = "첫 인사 기록"
-                dateEditText.setText(randomContact.savedDate)
-                dateEditText.setTextColor(Color.parseColor("#000000"))
-                text3.text = "마지막 인사 기록"
-                memoryEditText.setText(randomContact.lastContactedDate)
-                memoryEditText.setTextColor(Color.parseColor("#000000"))
-
-                // 입력 필드를 비활성화하고 저장 버튼을 숨김
-                personEditText.isEnabled = false
-                dateEditText.isEnabled = false
-                memoryEditText.isEnabled = false
-                saveButton.text = "닫기"
-                editButton.visibility = View.GONE
-
-                saveButton.setOnClickListener {
-                    dlg?.dismiss()
-                }
-                dlg?.setView(dialogView)
-                dlg?.show()
+                val imageResId = context?.resources?.getIdentifier(randomContact.picture, "drawable", context?.packageName) ?: R.drawable.logo
+                val resizedBitmap = resizeBitmap(imageResId, 500, 500)
+                memoryPic.setImageBitmap(resizedBitmap)
             }
             phoneNumber = randomContact.phoneNumber
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun calculateAge(birthday: String): Int {
-        val birthDate = LocalDate.parse(birthday)
-        val today = LocalDate.now()
-        return ChronoUnit.YEARS.between(birthDate, today).toInt()
+    private fun resizeBitmap(resId: Int, width: Int, height: Int): Bitmap {
+        val options = BitmapFactory.Options().apply {
+            inJustDecodeBounds = true
+        }
+        BitmapFactory.decodeResource(resources, resId, options)
+        options.inSampleSize = calculateInSampleSize(options, width, height)
+        options.inJustDecodeBounds = false
+        return BitmapFactory.decodeResource(resources, resId, options)
+    }
+
+    private fun calculateInSampleSize(options: BitmapFactory.Options, reqWidth: Int, reqHeight: Int): Int {
+        val (height: Int, width: Int) = options.run { outHeight to outWidth }
+        var inSampleSize = 1
+        if (height > reqHeight || width > reqWidth) {
+            val halfHeight: Int = height / 2
+            val halfWidth: Int = width / 2
+            while (halfHeight / inSampleSize >= reqHeight && halfWidth / inSampleSize >= reqWidth) {
+                inSampleSize *= 2
+            }
+        }
+        return inSampleSize
     }
 
     override fun onDestroyView() {
@@ -515,8 +402,9 @@ class NotificationsFragment : Fragment() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun findOldestContact(contacts: List<Contact>): Contact? {
-        return contacts.minByOrNull { LocalDate.parse(it.lastContactedDate) }
+    private fun calculateAge(birthday: String): Int {
+        val birthDate = LocalDate.parse(birthday)
+        val today = LocalDate.now()
+        return ChronoUnit.YEARS.between(birthDate, today).toInt()
     }
-
 }
