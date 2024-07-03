@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">자니...?</string>
     <string name="title_contact">Contact</string>
-    <string name="title_image">Image</string>
     <string name="title_memory">Memory</string>
+    <string name="title_message">Message</string>
     <string name="name">Name</string>
     <string name="phone">Phone</string>
     <string name="todo">TODO</string>

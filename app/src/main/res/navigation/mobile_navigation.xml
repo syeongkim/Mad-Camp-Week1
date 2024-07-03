@@ -13,12 +13,12 @@
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.example.myapplication.ui.dashboard.DashboardFragment"
-        android:label="@string/title_image"
+        android:label="@string/title_memory"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.example.myapplication.ui.notifications.NotificationsFragment"
-        android:label="@string/title_memory"
+        android:label="@string/title_message"
         tools:layout="@layout/fragment_notifications" />
 </navigation>
