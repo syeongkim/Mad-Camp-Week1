@@ -1,6 +1,5 @@
 # 자니..?
 
----
 
 익숙함에 속아 소중함을 잃지 않도록,
 
@@ -8,7 +7,6 @@
 
 ### Outline
 
----
 
 ![logo.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/f6cb388f-3934-47d6-9928-26d2e10eb0fc/a8a7729f-3511-408b-bf6e-09cd1b1adb53/logo.png)
 
@@ -18,7 +16,6 @@
 
 ### Team
 
----
 
 **김서영**
 
@@ -30,7 +27,6 @@ https://github.com/YoungMin0B
 
 ### Tech Stack
 
----
 
 **Front-end** : Kotlin
 
@@ -40,7 +36,6 @@ https://github.com/YoungMin0B
 
 ### About
 
----
 
 ### **Intro&Tablelayout**
 
