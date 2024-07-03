@@ -11,6 +11,7 @@ import com.example.myapplication.ui.home.Contact
 
 class ContactsAdapter(
     private var contacts: List<Contact>,
+    private val onContactClicked: (Contact) -> Unit,  // 연락처 클릭 이벤트 핸들러 추가
     private val onContactsUpdated: (List<Contact>) -> Unit
 ) : RecyclerView.Adapter<ContactsAdapter.ViewHolder>(), Filterable {
 
@@ -21,6 +22,14 @@ class ContactsAdapter(
         val phoneTextView: TextView = itemView.findViewById(R.id.phoneTextView)
 
         init {
+            itemView.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    // 연락처 클릭 시 onContactClicked 호출
+                    onContactClicked(filteredContacts[position])
+                }
+            }
+
             itemView.setOnLongClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
@@ -105,4 +114,3 @@ class ContactsAdapter(
         notifyDataSetChanged()
     }
 }
-
