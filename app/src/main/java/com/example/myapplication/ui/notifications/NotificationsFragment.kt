@@ -158,7 +158,7 @@ class NotificationsFragment : Fragment() {
 
         textView2.setOnClickListener {
             editMessage.visibility = View.VISIBLE
-            textView2.isEnabled = false
+            textView2.visibility = View.GONE
             editMessage.text = textView2.text
             editMessage.requestFocus()
             val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -168,10 +168,18 @@ class NotificationsFragment : Fragment() {
         editMessage.setOnFocusChangeListener {_, hasFocus ->
             if (!hasFocus) {
                 textView2.text = editMessage.text
+                textView2.visibility = View.VISIBLE
                 textView2.isEnabled = true
                 editMessage.visibility = View.GONE
             }
         }
+
+        root.setOnClickListener {
+            editMessage.clearFocus()
+        }
+
+        root.isFocusableInTouchMode = true
+        root.requestFocus()
 
         binding.button1.setOnClickListener {
             val intent = Intent(Intent.ACTION_DIAL).apply {
