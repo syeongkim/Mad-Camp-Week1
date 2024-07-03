@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/kakao_yellow"
         android:fontFamily="@font/nanumbarunpen"
-        android:text="이미지 추가"
+        android:text="추억 추가"
         android:layout_gravity="center"
         android:layout_marginBottom="16dp"/>
 

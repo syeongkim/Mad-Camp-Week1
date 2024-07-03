@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/kakao_yellow"
             android:fontFamily="@font/nanumbarunpen"
-            android:text="연락처 추가"
+            android:text="인연 추가"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

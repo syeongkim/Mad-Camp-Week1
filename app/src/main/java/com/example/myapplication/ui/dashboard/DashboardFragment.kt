@@ -292,8 +292,8 @@ class DashboardFragment : Fragment() {
             // 롱 클릭 리스너: 이미지 삭제
             imageView.setOnLongClickListener {
                 AlertDialog.Builder(context).apply {
-                    setTitle("이미지 삭제")
-                    setMessage("이 이미지를 삭제하시겠습니까?")
+                    setTitle("추억 삭제")
+                    setMessage("이 추억을 삭제하시겠습니까?")
                     setPositiveButton("삭제") { _, _ ->
                         // 이미지 삭제
                         imageDataList.removeAt(position)
