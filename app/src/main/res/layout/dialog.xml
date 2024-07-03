@@ -32,17 +32,27 @@
         android:fontFamily="@font/nanumbarunpen"
         android:hint="추억에 대해 기억할 수 있게 한 마디 적어주세요" />
 
-    <Button
-        android:id="@+id/saveButton"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/nanumbarunpen"
-        android:text="저장" />
+        android:orientation="horizontal"
+        android:gravity="center">
 
-    <Button
-        android:id="@+id/editButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/nanumbarunpen"
-        android:text="수정" />
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/nanumbarunpen"
+            android:text="저장" />
+
+        <Button
+            android:id="@+id/editButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/nanumbarunpen"
+            android:text="수정" />
+    </LinearLayout>
+
 </LinearLayout>
