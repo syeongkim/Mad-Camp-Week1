@@ -1,4 +1,5 @@
 ## 자니..?
+---
 익숙함에 속아 소중함을 잃지 않도록 (~~자니..? 우리 그때 행복했잖아… 기억나..?~~),
 
 연락 리마인드 앱 **자니..?** 로 소중한 인연을 관리하세요! ✉️
@@ -6,6 +7,7 @@
 
 
 ### Outline
+---
 ![image](https://github.com/syeongkim/Mad-Camp-Week1/assets/107764281/1aecfd4b-5818-44f1-97b3-0de1096803b3)
 
 
@@ -16,12 +18,14 @@
 
 
 ### Team
+---
 - #### 김서영
 - #### 박영민
 
 
 
 ### Tech Stack
+---
 **Front-end** : Kotlin
 
 **IDE** : Android Studio
@@ -29,6 +33,7 @@
 
 
 ### About
+---
 📱 **Intro & Tablayout** 
 
 - `Splash`를 사용하여 앱 로딩 화면을 제작했습니다.
@@ -98,6 +103,7 @@
 
 
 ### Lessons Learned
+---
 <aside>
 ❓ emulator에서는 잘 실행되는 앱이 공기계에서는 실행되지 않고, 또 공기계 기종에 따라 앱이 종료되는 시점이 다른 오류가 있었는데, 원인은 이미지 파일의 용량이 커서 로딩되는 시간이 너무 오래 걸렸기 때문임
 
@@ -111,6 +117,7 @@
 
 
 ### Preview
+---
 📱 **Intro & Tablayout**
 
 
