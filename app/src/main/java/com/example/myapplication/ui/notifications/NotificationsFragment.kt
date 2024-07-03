@@ -314,8 +314,8 @@ class NotificationsFragment : Fragment() {
                     text1.text = "생일인 사람:"
                     personEditText.setText(matchingBirthday.name)
                     personEditText.setTextColor(Color.parseColor("#000000"))
-                    text2.text = "생일:"
-                    dateEditText.setText(matchingBirthday.birthday)
+                    text2.text = "첫 인사 기록:"
+                    dateEditText.setText(matchingBirthday.savedDate)
                     dateEditText.setTextColor(Color.parseColor("#000000"))
                     text3.text = "마지막 인사 기록"
                     memoryEditText.setText(matchingBirthday.lastContactedDate)
