@@ -128,7 +128,6 @@ class DashboardFragment : Fragment() {
     }
 
     private fun loadImageDataList() {
-        saveImageDataList()
         val sharedPreferences = requireContext().getSharedPreferences("image_data", Context.MODE_PRIVATE)
         val jsonString = sharedPreferences.getString("imageDataList", null)
 

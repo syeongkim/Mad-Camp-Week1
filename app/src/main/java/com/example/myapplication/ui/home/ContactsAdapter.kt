@@ -41,8 +41,8 @@ class ContactsAdapter(
 
         private fun showDeleteDialog(contact: Contact) {
             AlertDialog.Builder(itemView.context)
-                .setTitle("인연 삭제")
-                .setMessage("이 인연을 삭제하시겠습니까?")
+                .setTitle("연락처 삭제")
+                .setMessage("이 연락처를 삭제하시겠습니까?")
                 .setPositiveButton("삭제") { _, _ ->
                     deleteContact(contact)
                 }
