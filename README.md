@@ -1,43 +1,36 @@
-# 자니..?
-익숙함에 속아 소중함을 잃지 않도록,
+## 자니..?
+익숙함에 속아 소중함을 잃지 않도록 (~~자니..? 우리 그때 행복했잖아… 기억나..?~~),
 
-소중한 인연을 관리하세요 ✉️
+연락 리마인드 앱 **자니..?** 로 소중한 인연을 관리하세요! ✉️
 
-## Outline
-![image](https://github.com/syeongkim/Mad-Camp-Week1/assets/107764281/d45d5314-48d6-426d-b29f-9ac44190713c)
-
+### Outline
+[![logo.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/f6cb388f-3934-47d6-9928-26d2e10eb0fc/a8a7729f-3511-408b-bf6e-09cd1b1adb53/logo.png)](https://private-user-images.githubusercontent.com/107764281/345361782-d45d5314-48d6-426d-b29f-9ac44190713c.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MjAwMDQ5OTUsIm5iZiI6MTcyMDAwNDY5NSwicGF0aCI6Ii8xMDc3NjQyODEvMzQ1MzYxNzgyLWQ0NWQ1MzE0LTQ4ZDYtNDI2ZC1iMjlmLTlhYzQ0MTkwNzEzYy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNzAzJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDcwM1QxMTA0NTVaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1iMDJjNTYwMzIzZTI2MjBkMWQwY2IzOWI4YzYzODAyOWY0YmY1YmFjNWExMDJjZTVjMzgxYWFkNDJhZjVhMTY1JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.OKdcLzA4GyUz5sfekWiuzG5Bp4drNVnkDj5hkB1iJ9I)
 
 **자니..?**는 소중한 인연들을 잃지 않도록 주기적으로 **연락을 리마인드** 해주는 앱입니다.
 
 소중한 인연의 **연락처 관리**, 소중한 인연과의 **추억 관리**, 소중한 인연과의 **연락 관리**를 할 수 있는 3개의 탭으로 구성되어 있습니다.
 
-## Team
-**김서영**
+### Team
+[김서영](https://www.notion.so/311946d346434147a28e847dd315b320?pvs=21)
 
-https://github.com/syeongkim
+[syeongkim - Overview](https://github.com/syeongkim)
 
-**박영민**
+[박영민](https://www.notion.so/5ace0e55931448738d0e6f376eaf9c4b?pvs=21)
 
-https://github.com/YoungMin0B
+[YoungMin0B - Overview](https://github.com/YoungMin0B)
 
-## Tech Stack
+### Tech Stack
 **Front-end** : Kotlin
 
 **IDE** : Android Studio
 
----
+### About
+📱 **Intro & Tablayout** 
 
-## About
-### **Intro&Tablelayout**
-
-- 앱을 처음 시작할 때 로고가 짜-앏게 떠오릅니다( 두-둥 이펙트).
-    - splash를
+- `Splash`를 사용하여 앱 로딩 화면을 제작했습니다.
 - `Bottom Navigation Bar` 를 통해 각각의 탭으로 이동할 수 있습니다.
 
-**(첨부)**
-*Intro*
-
-### **Contact**
+📞 **Contact**
 
 - 연락처 확인
     - 저장된 연락처 목록을 `RecyclerView` 로 제공합니다.
@@ -57,10 +50,7 @@ https://github.com/YoungMin0B
 - 삭제 기능
     - 연락처 아이템을 길게 누르면 나오는 `alertdialog` 로 연락처를 삭제할 수 있습니다.
 
-**(첨부)**
-*Contact기능*
-
-### **Memory**
+📸 **Memory** 
 
 - 추억 확인
     - 갤러리의 추억 사진들을 `GridView` 로 확인할 수 있습니다.
@@ -75,10 +65,7 @@ https://github.com/YoungMin0B
 - 삭제 기능
     - 이미지를 길게 누르면 나오는`alertdialog` 로 추억을 삭제할 수 있습니다.
 
-**(첨부)**
-*Memory기능*
-
-### **Message**
+💬 **Message** 
 
 소중한 추억들을 잊지 않도록 주기적으로 **연락을 리마인드하여** 소중한 인연과의 **연락을 관리할 수 있는 서비스를 제공합니다.**
 
@@ -99,18 +86,32 @@ https://github.com/YoungMin0B
 - 연락 연결 기능
     - 전화 걸기 버튼을 클릭하여 추천 받은 연락처로 바로 전화를 걸 수 있습니다.
     - 문자 보내기 버튼을 클릭하며 추천 받은 연락처로 바로 문자를 보낼 수 있습니다.
+    **
 
-**(첨부)**
-*Message기능*
+### Lessons Learned
+<aside>
+❓ emulator에서는 잘 실행되는 앱이 공기계에서는 실행되지 않고, 또 공기계 기종에 따라 앱이 종료되는 시점이 다른 오류가 있었는데, 원인은 이미지 파일의 용량이 커서 로딩되는 시간이 너무 오래 걸렸기 때문임
 
----
+</aside>
 
-## Preview
+<aside>
+❗ 기능 개발 뿐만 아니라 프로젝트 최적화에도 많은 노력을 기울여야 함을 깨달았음.
 
----
+</aside>
 
-## Beta
+### Preview
+📱 **Intro & Tablayout**
+
+📞 **Contact**
+
+📸 **Memory**
+
+💬 **Message**
+
+### Beta
 
 ---
 
 **apk link**
+
+https://drive.google.com/file/d/1ILuw6a_f-wFjA5YoyFc4Du7-vdhzdSi2/view?usp=sharing
