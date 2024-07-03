@@ -80,25 +80,33 @@ class HomeFragment : Fragment() {
         val dialogLayout = inflater.inflate(R.layout.dialog_add_contact, null)
         val nameEditText = dialogLayout.findViewById<EditText>(R.id.nameEditText)
         val phoneEditText = dialogLayout.findViewById<EditText>(R.id.phoneEditText)
-        val birthdayEditText = dialogLayout.findViewById<EditText>(R.id.birthdayEditText) // 생일 입력 필드 추가
+        val birthdayEditText = dialogLayout.findViewById<EditText>(R.id.birthdayEditText)
+        val cancelButton = dialogLayout.findViewById<Button>(R.id.cancelButton)
+        val saveButton = dialogLayout.findViewById<Button>(R.id.saveButton)
 
-        with(builder) {
-            setTitle("연락처 추가")
-            setView(dialogLayout)
-            setPositiveButton("추가") { _, _ ->
-                val name = nameEditText.text.toString()
-                val phone = phoneEditText.text.toString()
-                val birthday = birthdayEditText.text.toString() // 생일 값 읽기
-                val currentDate = getCurrentDate()
+        builder.setTitle("연락처 추가")
+        builder.setView(dialogLayout)
 
-                if (name.isNotEmpty() && phone.isNotEmpty()) {
-                    val newContact = Contact(name, phone, currentDate, currentDate, null, birthday)
-                    addContact(newContact)
-                }
-            }
-            setNegativeButton("취소", null)
-            show()
+        val dialog = builder.create()
+
+        cancelButton.setOnClickListener {
+            dialog.dismiss()
         }
+        saveButton.setOnClickListener {
+            val name = nameEditText.text.toString()
+            val phone = phoneEditText.text.toString()
+            val birthday = birthdayEditText.text.toString() // 생일 값 읽기
+            val currentDate = getCurrentDate()
+
+            if (name.isNotEmpty() && phone.isNotEmpty()) {
+                val newContact = Contact(name, phone, currentDate, currentDate, null, birthday)
+                addContact(newContact)
+            }
+
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 
     // 연락처 수정 다이얼로그를 표시하는 함수
