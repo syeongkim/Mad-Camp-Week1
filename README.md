@@ -1,22 +1,17 @@
 # 자니..?
-
-
 익숙함에 속아 소중함을 잃지 않도록,
 
 소중한 인연을 관리하세요 ✉️
 
-### Outline
+## Outline
+![image](https://github.com/syeongkim/Mad-Camp-Week1/assets/107764281/d45d5314-48d6-426d-b29f-9ac44190713c)
 
-
-![logo.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/f6cb388f-3934-47d6-9928-26d2e10eb0fc/a8a7729f-3511-408b-bf6e-09cd1b1adb53/logo.png)
 
 **자니..?**는 소중한 인연들을 잃지 않도록 주기적으로 **연락을 리마인드** 해주는 앱입니다.
 
 소중한 인연의 **연락처 관리**, 소중한 인연과의 **추억 관리**, 소중한 인연과의 **연락 관리**를 할 수 있는 3개의 탭으로 구성되어 있습니다.
 
-### Team
-
-
+## Team
 **김서영**
 
 https://github.com/syeongkim
@@ -25,18 +20,14 @@ https://github.com/syeongkim
 
 https://github.com/YoungMin0B
 
-### Tech Stack
-
-
+## Tech Stack
 **Front-end** : Kotlin
 
 **IDE** : Android Studio
 
 ---
 
-### About
-
-
+## About
 ### **Intro&Tablelayout**
 
 - 앱을 처음 시작할 때 로고가 짜-앏게 떠오릅니다( 두-둥 이펙트).
@@ -114,11 +105,11 @@ https://github.com/YoungMin0B
 
 ---
 
-### Preview
+## Preview
 
 ---
 
-### Beta
+## Beta
 
 ---
 
