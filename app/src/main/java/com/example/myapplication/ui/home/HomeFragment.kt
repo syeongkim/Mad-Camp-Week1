@@ -2,13 +2,13 @@ package com.example.myapplication.ui.home
 
 import ContactsAdapter
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -108,22 +108,27 @@ class HomeFragment : Fragment() {
         // 연락처 정보를 입력 필드에 설정하고 초기에는 비활성화 상태로 설정
         val nameEditText = dialogLayout.findViewById<EditText>(R.id.nameEditText).apply {
             setText(contact.name)
+            setTextColor(Color.parseColor("#000000"))
             isEnabled = false
         }
         val phoneEditText = dialogLayout.findViewById<EditText>(R.id.phoneEditText).apply {
             setText(contact.phoneNumber)
+            setTextColor(Color.parseColor("#000000"))
             isEnabled = false
         }
         val birthdayEditText = dialogLayout.findViewById<EditText>(R.id.birthdayEditText).apply {
             setText(contact.birthday ?: "")
+            setTextColor(Color.parseColor("#000000"))
             isEnabled = false
         }
         val firstMetDateEditText = dialogLayout.findViewById<EditText>(R.id.firstMetDateEditText).apply {
             setText(contact.savedDate)
+            setTextColor(Color.parseColor("#000000"))
             isEnabled = false
         }
         val lastContactedDateEditText = dialogLayout.findViewById<EditText>(R.id.lastContactedDateEditText).apply {
             setText(contact.lastContactedDate)
+            setTextColor(Color.parseColor("#000000"))
             isEnabled = false
         }
         val saveButton = dialogLayout.findViewById<Button>(R.id.saveButton).apply {
@@ -141,13 +146,19 @@ class HomeFragment : Fragment() {
         editButton.setOnClickListener {
             // 입력 필드를 활성화
             nameEditText.isEnabled = true
+            nameEditText.setTextColor(Color.parseColor("#808080"))
             phoneEditText.isEnabled = true
+            phoneEditText.setTextColor(Color.parseColor("#808080"))
             birthdayEditText.isEnabled = true
+            birthdayEditText.setTextColor(Color.parseColor("#808080"))
             firstMetDateEditText.isEnabled = true
+            firstMetDateEditText.setTextColor(Color.parseColor("#808080"))
             lastContactedDateEditText.isEnabled = true
+            lastContactedDateEditText.setTextColor(Color.parseColor("#808080"))
 
             // 저장 버튼을 표시
             saveButton.visibility = View.VISIBLE
+            editButton.visibility = View.GONE
         }
 
         saveButton.setOnClickListener {
