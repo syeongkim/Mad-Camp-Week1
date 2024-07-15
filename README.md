@@ -108,7 +108,7 @@
 ❓ emulator에서는 잘 실행되는 앱이 공기계에서는 실행되지 않고, 또 공기계 기종에 따라 앱이 종료되는 시점이 다른 오류가 있었는데, 원인은 이미지 파일의 용량이 커서 로딩되는 시간이 너무 오래 걸렸기 때문임
 
 </aside>
-
+<br>
 <aside>
 ❗ 기능 개발 뿐만 아니라 프로젝트 최적화에도 많은 노력을 기울여야 함을 깨달았음.
 
@@ -121,7 +121,7 @@
 📱 **Intro & Tablayout**
 
 
-![image](https://github.com/syeongkim/Mad-Camp-Week1/assets/107764281/8a8782d0-7aec-4545-8079-a9a3fab1d644)
+<img src="https://github.com/user-attachments/assets/7d296e64-576a-4128-86a4-c889e96d62f2">
 
 
 📞 **Contact**
