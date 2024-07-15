@@ -137,10 +137,10 @@
 📸 **Memory**
 
 
-![image](https://github.com/syeongkim/Mad-Camp-Week1/assets/107764281/f43615b8-5457-4283-a50d-d4415fadae4b)
-![image](https://github.com/syeongkim/Mad-Camp-Week1/assets/107764281/a7a4d45b-e39c-4440-98ce-bcdb5112c5a0)
-![image](https://github.com/syeongkim/Mad-Camp-Week1/assets/107764281/512e2e16-9223-4613-a3a4-29838602f4df)
-![image](https://github.com/syeongkim/Mad-Camp-Week1/assets/107764281/443b19a7-0de8-421d-83e9-115db8f3b3ca)
+<img src="https://github.com/user-attachments/assets/9d2530e9-744f-432c-a591-60f9b7fdfe60">
+<img src="https://github.com/user-attachments/assets/cc4989b4-ffa4-4f42-92c7-e86521a93ed7">
+<img src="https://github.com/user-attachments/assets/325590fe-2244-45e4-b1b1-f28e3d256ce0">
+<img src="https://github.com/user-attachments/assets/7275c268-58fc-4984-b06a-80bde2871df3">
 
 
 
@@ -149,7 +149,7 @@
 💬 **Message**
 
 
-![image](https://github.com/syeongkim/Mad-Camp-Week1/assets/107764281/0ec9020d-f905-4885-b0b9-a7fdf40ade1a)
+<img src="https://github.com/user-attachments/assets/f31d11f7-5a2c-4d09-969e-c2ddea94dc04">
 
 
 
